@@ -1,0 +1,20 @@
+description:
+  Successfully registered an user! Response contains the json object with data
+  of the new user.
+content:
+  application/json:
+    schema:
+      type: object
+      required:
+        - status
+        - message
+        - data
+      properties:
+        status:
+          type: integer
+          example: 201
+        message:
+          type: string
+          example: 'Successfully registered an user!'
+        data:
+          $ref: ../schemas/userResponse.yaml

@@ -1,0 +1,23 @@
+tags:
+  - Auth
+summary: Login an user
+operationId: loginUser
+description: '**Login** an user. Credentials pair is valid email and password.'
+security:
+  - bearerAuth: []
+requestBody:
+  description: User's credentials
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: ../../../components/schemas/credentials.yaml
+responses:
+  '200':
+    $ref: ../../../components/responses/loginUser-200.yaml
+  '400':
+    $ref: ../../../components/responses/registerUser-400.yaml
+  '401':
+    $ref: ../../../components/responses/loginUser-401.yaml
+  '500':
+    $ref: ../../../components/responses/500.yaml

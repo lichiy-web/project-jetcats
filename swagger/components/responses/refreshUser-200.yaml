@@ -1,0 +1,35 @@
+description:
+  'Successfully refreshed a session! Response contains the json object with an
+  acces token. </br> The **session id** and **refresh token** are returned in
+  **cookies** named "sessionId" and "refreshToken" respectively. Include these
+  cookies in subsequent requests.'
+content:
+  application/json:
+    schema:
+      type: object
+      required:
+        - status
+        - message
+        - data
+      properties:
+        status:
+          type: integer
+          example: 200
+        message:
+          type: string
+          example: 'Successfully refreshed a session!'
+        data:
+          type: object
+          description:
+            'An object conains a token to attach it to every http request to
+            access protected resources. '
+          required:
+            - accessToken
+          properties:
+            accessToken:
+              type: string
+              description: 'Every access token is valid within 15 min. '
+              example: 'HX2tUXNch7cXz9kJntFrSshhiByy7ow5LEECddZm'
+headers:
+  Set-Cookie:
+    $ref: ../schemas/setCookies.yaml

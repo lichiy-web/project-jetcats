@@ -1,0 +1,71 @@
+description: Wrong body data
+content:
+  application/json:
+    schema:
+      type: object
+      required:
+        - status
+        - message
+        - data
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: 'Bad request'
+        data:
+          type: object
+          required:
+            - message
+          properties:
+            message:
+              type: string
+              example: 'Bad request'
+            errors:
+              type: array
+              description: The all errors scope.
+              items:
+                type: object
+                description: Represent one of errors from the scope.
+                required:
+                  - message
+                  - paths
+                  - type
+                  - context
+                properties:
+                  message:
+                    type: string
+                    example: '"email" must be a valid email'
+                  paths:
+                    type: array
+                    description:
+                      Represent property path in the request body json
+                    items:
+                      type: string
+                    example: ['email']
+                  type:
+                    type: string
+                    description:
+                      'The type of request json property that excepted an
+                      error/s'
+                    example: 'string.email'
+                  context:
+                    type: object
+                    required:
+                      - value
+                      - invalids
+                      - key
+                    properties:
+                      value:
+                        type: string
+                        description: The property value that excepted an error
+                        example: 'eddard.stark_winterfell.com'
+                      invalids:
+                        type: array
+                        description: The List of invalid values.
+                        example: ['eddard.stark_winterfell.com']
+                      key:
+                        type: string
+                        description: The key of property that excepted an error
+                        example: 'email'

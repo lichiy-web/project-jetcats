@@ -1,0 +1,7 @@
+schema:
+  type: string
+  example:
+    sessionId=67f93807aaafe44c3fd07fb7; Path=/; Expires=Fri, 30 May 2025
+    03:35:20 GMT; HttpOnly;
+    refreshToken=uEYNbhC4jQ6YcoV9hLPfQRI8oE4ZI/khZyCRkLlh; Path=/; Expires=Fri,
+    30 May 2025 03:35:20 GMT; HttpOnly;

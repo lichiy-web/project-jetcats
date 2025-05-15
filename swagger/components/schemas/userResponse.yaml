@@ -1,0 +1,33 @@
+type: object
+required:
+  - _id
+  - name
+  - email
+  - createdAt
+  - updatedAt
+properties:
+  _id:
+    description: "User's id"
+    type: string
+    example: 68117fe3e01ed5b81fd43c97
+  name:
+    description: User name, not a credentials part.
+    type: string
+    minLength: 3
+    maxLength: 20
+    example: Eddard Stark
+  email:
+    description: Email is a login of user
+    type: string
+    format: email
+    example: eddard.stark@winterfell.com
+  createdAt:
+    description: Time of user register.
+    type: string
+    format: date-time
+    example: '2025-04-16T00:48:59.759Z'
+  updatedAt:
+    description: Time of last user update.
+    type: string
+    format: date-time
+    example: '2025-04-30T01:41:55.437Z'

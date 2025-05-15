@@ -1,0 +1,38 @@
+tags:
+  - Auth
+summary: Login with google OAuth API
+operationId: loginWithGoogleOAuth
+description:
+  '**Login** with google OAuth API. Pass in the request JSON body code gotten
+  from the same name query parameter of URL that the google consent screen
+  redirects to.'
+security:
+  - bearerAuth: []
+requestBody:
+  description: User's credentials
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - code
+        properties:
+          code:
+            description:
+              'The **code** query parameter retrieved from the URL to which
+              google consent screen redirects. </br> **This URL** looks like:
+              </br>
+              [http://domain-name.com/auth/confirm-oauth?**code=4%2F0Ab_5qlk0KhUUB4nN9ThyM9dTe4_fUvUOet8Vwab2B9pAG1ds5cvLq3KGaGrkHOznH5dF-g**&scope=email+profile+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&authuser=8&prompt=none]()'
+            type: string
+            format: byte
+            example: '4/0Ab_5qlk0KhUUB4nN9ThyM9dTe4_fUvUOet8Vwab2B9pAG1ds5cvLq3KGaGrkHOznH5dF-g'
+responses:
+  '200':
+    $ref: ../../../components/responses/loginUser-200.yaml
+  '400':
+    $ref: ../../../components/responses/confirm-oauth-400.yaml
+  '401':
+    $ref: ../../../components/responses/loginUser-401.yaml
+  '500':
+    $ref: ../../../components/responses/500.yaml

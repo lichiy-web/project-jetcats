@@ -1,0 +1,7 @@
+in: cookie
+name: sessionId
+required: true
+schema:
+  type: string
+  description: The session id. It's set by the backend server.
+  example: 67f93807aaafe44c3fd07fb7

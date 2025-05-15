@@ -1,0 +1,21 @@
+type: object
+required:
+  - name
+  - email
+  - password
+properties:
+  name:
+    description: An user name, not part of credentials.
+    type: string
+    minLength: 3
+    maxLength: 20
+    example: Eddard Stark
+  email:
+    description: Email is a user's login
+    type: string
+    format: email
+    example: eddard.stark@winterfell.com
+  password:
+    description: User's password
+    type: string
+    example: UseSafePasSwoRds_likEThiS12$-

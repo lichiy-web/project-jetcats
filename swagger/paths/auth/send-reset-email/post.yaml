@@ -1,0 +1,31 @@
+tags:
+  - Auth
+summary: Send reset email
+operationId: sendResetEmail
+description:
+  '**Send email** to the user to reset its password. **Provide** an user email
+  address to which the server should send an email with a password reset link.'
+security:
+  - bearerAuth: []
+requestBody:
+  description: User's email
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - email
+        properties:
+          email:
+            description: The email address to get the password reset link.
+            type: string
+            format: email
+            example: eddard.stark@winterfell.com
+responses:
+  '200':
+    $ref: ../../../components/responses/sendResetEmail-200.yaml
+  '400':
+    $ref: ../../../components/responses/registerUser-400.yaml
+  '500':
+    $ref: ../../../components/responses/500.yaml

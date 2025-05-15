@@ -1,0 +1,19 @@
+tags:
+  - Auth
+summary: Logout an user
+operationId: logoutUser
+description: '**Login** an user. Credentials pair is valid email and password.'
+security:
+  - bearerAuth: []
+parameters:
+  - $ref: ../../../components/schemas/cookieSessionId.yaml
+  - $ref: ../../../components/schemas/cookieRefreshToken.yaml
+responses:
+  '204':
+    description: Session has deleted successfully.
+    headers:
+      Set-Cookie:
+        $ref: ../../../components/schemas/clearCookes.yaml
+
+  '500':
+    $ref: ../../../components/responses/500.yaml

@@ -1,0 +1,57 @@
+{
+  "name": "node-js-template",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "lint": "eslint src/**/*.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/index.js",
+    "generate-users": "node src/utils/generators/generateUsers.js",
+    "generate-contacts": "node src/utils/generators/generateContactsForAllUsers.js",
+    "build": "npm run build-docs",
+    "build-docs": "redocly bundle docs/openapi.yaml --ext json -o docs/swagger.json",
+    "preview-docs": "redocly preview-docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lichiy-web/node-js-template.git"
+  },
+  "keywords": [],
+  "author": "Yevhen Lykhosherstov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lichiy-web/node-js-template/issues"
+  },
+  "homepage": "https://github.com/lichiy-web/node-js-template#readme",
+  "description": "GoIT Node.js template",
+  "devDependencies": {
+    "@eslint/js": "^9.23.0",
+    "@faker-js/faker": "^9.6.0",
+    "@redocly/cli": "^1.34.2",
+    "eslint": "^9.23.0",
+    "globals": "^16.0.0",
+    "jsdoc": "^4.0.4",
+    "nodemon": "^3.1.9",
+    "pino-pretty": "^13.0.0"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cloudinary": "^2.6.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "handlebars": "^4.7.8",
+    "http-errors": "^2.0.0",
+    "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.15.0",
+    "mongoose": "^8.12.2",
+    "multer": "^1.4.5-lts.2",
+    "nodemailer": "^6.10.1",
+    "pino-http": "^10.4.0",
+    "swagger-ui-express": "^5.0.1"
+  }
+}

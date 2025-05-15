@@ -1,0 +1,43 @@
+tags:
+  - Auth
+summary: Reset user's password
+operationId: resetPassword
+description:
+  "**Reset** the user's password. **Provide** a signed JSON web token contained
+  information about the user and a new password to the reset."
+security:
+  - bearerAuth: []
+requestBody:
+  description: Data to reset the user's password
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - token
+          - password
+        properties:
+          token:
+            description:
+              'A JSON web token with info about the **user**: {**userId,
+              email**} and a **time stamp** when it expires.'
+            type: string
+            format: byte
+            example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2ZlZmU3YjY4MGRhNTk1Zjg5Y2RhNzAiLCJlbWFpbCI6ImxpY2hpeS5zdG9ybXNob3RAZ21haWwuY29tIiwiaWF0IjoxNzQ0OTQwNDE2LCJleHAiOjE3NDQ5NDA3MTZ9.MQpKvgnfv5ddNuJ5zz0e7mz68DaS5kezT_RmiPirnzQ'
+          password:
+            description: The new user's password
+            type: string
+            format: password
+            example: 'UseStRongPAsswoRds_LikeThiS12-4'
+responses:
+  '200':
+    $ref: ../../../components/responses/resetEmail-200.yaml
+  '400':
+    $ref: ../../../components/responses/resetEmail-400.yaml
+  '401':
+    $ref: ../../../components/responses/resetPassword-401.yaml
+  '404':
+    $ref: ../../../components/responses/resetPassword-404.yaml
+  '500':
+    $ref: ../../../components/responses/500.yaml

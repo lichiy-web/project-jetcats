@@ -1,0 +1,70 @@
+description: Wrong body data
+content:
+  application/json:
+    schema:
+      type: object
+      required:
+        - status
+        - message
+        - data
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: 'Bad request'
+        data:
+          type: object
+          required:
+            - message
+          properties:
+            message:
+              type: string
+              example: 'Bad request'
+            errors:
+              type: array
+              description: The all errors scope.
+              items:
+                type: object
+                description: Represent one of errors from the scope.
+                required:
+                  - message
+                  - paths
+                  - type
+                  - context
+                properties:
+                  message:
+                    type: string
+                    example: '"code" must be a string'
+                  paths:
+                    type: array
+                    description:
+                      Represent property path in the request body json
+                    items:
+                      type: string
+                    example: ['code']
+                  type:
+                    type: string
+                    description:
+                      'The type of request json property that excepted an
+                      error/s'
+                    example: 'string.base'
+                  context:
+                    type: object
+                    required:
+                      - value
+                      - key
+                      - label
+                    properties:
+                      value:
+                        type: string
+                        description: The property value that excepted an error
+                        example: !!int 1324567890
+                      key:
+                        type: string
+                        description: The key of property that excepted an error
+                        example: 'code'
+                      label:
+                        type: string
+                        example: 'code'

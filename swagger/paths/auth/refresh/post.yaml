@@ -1,0 +1,20 @@
+tags:
+  - Auth
+summary: Refresh a session
+operationId: refreshUserSession
+description:
+  '**Refresh** a user session. Use this endpoint to get a new pair of a
+  sessionId and refreshToken in cookie and an access token in the response json
+  body, if access token is expired.'
+security:
+  - bearerAuth: []
+parameters:
+  - $ref: ../../../components/schemas/cookieSessionId.yaml
+  - $ref: ../../../components/schemas/cookieRefreshToken.yaml
+responses:
+  '200':
+    $ref: ../../../components/responses/refreshUser-200.yaml
+  '401':
+    $ref: ../../../components/responses/refreshToken-401.yaml
+  '500':
+    $ref: ../../../components/responses/500.yaml

@@ -1,0 +1,34 @@
+export const RES_MSG = {
+  200: {
+    default: 'OK',
+    loginUser: 'Successfully logged in an user!',
+    refreshUserSession: 'Successfully refreshed a session!',
+    sendResetEmail: 'Reset password email has been successfully sent.',
+    resetPwd: 'Password has been successfully reset!',
+  },
+  201: {
+    default: 'Successfully created!',
+    registerUser: 'Successfully registered an user!',
+  },
+  204: { default: '' },
+  400: { default: 'Bad request' },
+  401: {
+    default: 'Unauthorized',
+    noSession: 'Session not found',
+    noUser: 'User not found',
+    notBearer: 'Auth header should be of type Bearer',
+    noAuthHeader: 'Please provide Authorization header',
+    accessTokenExpired: 'Access token expired',
+    refreshTokenExpired: 'Refresh token expired',
+    badResetToken: 'Token is expired or invalid.',
+  },
+  404: {
+    default: 'Rout not found!',
+    noContact: 'Contact not found!',
+    noUser: 'User not found!',
+  },
+  500: {
+    default: 'Something went wrong',
+    noSwaggerDocs: "Can't load swagger docs",
+  },
+};

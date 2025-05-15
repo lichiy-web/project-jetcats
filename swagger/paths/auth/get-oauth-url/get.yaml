@@ -1,0 +1,14 @@
+tags:
+  - Auth
+summary: Get google oauth URL
+operationId: getGoogleOAuthUrl
+description:
+  '**Get** google auth URL to use it in GET HTTP request to get an user code
+  with permission and user data.'
+security:
+  - bearerAuth: []
+responses:
+  '200':
+    $ref: ../../../components/responses/getGoogleOAuthUrl-200.yaml
+  '500':
+    $ref: ../../../components/responses/500.yaml

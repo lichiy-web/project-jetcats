@@ -1,0 +1,43 @@
+description: Invalid contactId or wrong body data
+content:
+  application/json:
+    schema:
+      type: object
+      required:
+        - status
+        - message
+        - data
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: 'Bad request'
+        data:
+          type: object
+          required:
+            - message
+          properties:
+            message:
+              type: string
+              example: '"contactType" must be one of [work, home, personal]'
+    examples:
+      invalidContactId:
+        description: 'The URL path parameter **contactId** is invalid'
+        summary: Invalid contactId
+        value:
+          status: 400
+          message: 'Bad request'
+          data:
+            message: 'ContactId: ttrpaPPOperpog14po42p is not valid'
+      wrongBodyData:
+        summary: Wrong request body data
+        description:
+          The body data of the request is wrong, for example, the request body
+          doesn't consist the required parameters or they have invalid values.
+        value:
+          status: 400
+          message: 'Bad request'
+          data:
+            message: '"contactType" must be one of [work, home, personal]'

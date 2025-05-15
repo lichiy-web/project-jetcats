@@ -1,0 +1,26 @@
+tags:
+  - Auth
+summary: Register a new user
+operationId: registerUser
+description:
+  '**Register** a new user. Credentials pair is valid email and password.
+  **Ensure** that password is strong.'
+security:
+  - bearerAuth: []
+requestBody:
+  description: User's name and credentials
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        $ref: ../../../components/schemas/registerUser.yaml
+responses:
+  '201':
+    $ref: ../../../components/responses/registerUser-201.yaml
+  '400':
+    $ref: ../../../components/responses/registerUser-400.yaml
+  '409':
+    $ref: ../../../components/responses/registerUser-409.yaml
+  '500':
+    $ref: ../../../components/responses/500.yaml

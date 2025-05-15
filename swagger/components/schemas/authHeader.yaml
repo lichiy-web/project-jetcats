@@ -1,0 +1,7 @@
+in: header
+name: Authorization
+description: The token issued to the current user.
+required: true
+schema:
+  type: string
+  example: 'Bearer z1bRiXLYvXfLyGF27MpmzmJMjD2A9CymuZPPgDsp'

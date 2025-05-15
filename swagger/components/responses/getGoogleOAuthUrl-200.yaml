@@ -1,0 +1,27 @@
+description:
+  'Successfully get google OAuth url! Response contains the json object with an
+  appropriated url address of the google consent screen.'
+content:
+  application/json:
+    schema:
+      type: object
+      required:
+        - status
+        - message
+        - data
+      properties:
+        status:
+          type: integer
+          example: 200
+        message:
+          type: string
+          example: 'Successfully get Google OAuth url!'
+        data:
+          type: object
+          required:
+            - url
+          properties:
+            url:
+              type: string
+              format: uri
+              example: 'https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&response_type=code&client_id=547583953910-7d3oeii39ljp8pkq3jlno4djo4tdvu27.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fauth%2Fconfirm-oauth'
