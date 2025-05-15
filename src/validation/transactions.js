@@ -25,3 +25,11 @@ export const transactionAddSchema = Joi.object({
     'string.max': 'Comment must be less than or equal to 192 characters',
   }),
 });
+
+export const updateTransactionSchema = Joi.object({
+  type: Joi.string().valid('income', 'expense').optional(),
+  category: Joi.string().optional(),
+  sum: Joi.number().min(0.01).max(1000000).optional(),
+  date: Joi.date().iso().optional(),
+  comment: Joi.string().min(2).max(192).optional(),
+}).min(1);
