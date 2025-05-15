@@ -1,0 +1,103 @@
+tags:
+  - Transactions
+summary: Update a transaction by ID
+description: Logged-in user can update their own transaction.
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: transactionId
+    required: true
+    description: The ID of the transaction to update
+    schema:
+      type: string
+      example: 66512d5b9828a8f5f30e8ac1
+requestBody:
+  required: false
+  content:
+    application/json:
+      schema:
+        $ref: '../../components/schemas/UpdateTransaction.yaml'
+responses:
+  '200':
+    description: Transaction successfully updated
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Transaction updated successfully
+            data:
+              $ref: '../../components/schemas/Transaction.yaml'
+  '400':
+    description: 'Invalid request (body or ID)'
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 400
+            message:
+              type: string
+              example: 'Bad Request'
+            data:
+              type: object
+              properties:
+                errors:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: 'Invalid ID format or missing required field'
+  '401':
+    description: Unauthorized — missing or invalid token
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 401
+            message:
+              type: string
+              example: Transaction not found
+  '404':
+  description: Transaction not found
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: integer
+            example: 404
+          message:
+            type: string
+            example: Transaction not found
+  '500':
+    description: Internal server error
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 500
+            message:
+              type: string
+              example: Something went wrong

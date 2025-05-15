@@ -1,0 +1,18 @@
+type: object
+properties:
+  type:
+    type: string
+    example: expense
+  category:
+    type: string
+    example: Food
+  amount:
+    type: number
+    example: 200
+  date:
+    type: string
+    format: date
+    example: 2025-05-10
+  description:
+    type: string
+    example: Dinner with friends
