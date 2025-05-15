@@ -4,6 +4,7 @@ import { validateBody } from '../middlewares/validateBody.js';
 import { updateTransactionSchema } from '../validation/transactions.js';
 import { updateTransactionController } from '../controllers/transactions.js';
 import { authenticate } from '../middlewares/authenticate.js';
+import { isValidId } from '../middlewares/isValidId.js';
 
 const router = new Router();
 
