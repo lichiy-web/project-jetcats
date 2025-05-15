@@ -40,4 +40,5 @@ content:
           status: 400
           message: 'Bad request'
           data:
-            message: '"contactType" must be one of [work, home, personal]'
+            message:
+              '"Type of the transaction" must be one of [income, expense]'

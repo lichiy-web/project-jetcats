@@ -1,0 +1,64 @@
+tags:
+  - Transactions
+summary: Create a transaction
+operationId: createTransaction
+description: 'Create a transaction with payload'
+security:
+  - bearerAuth: []
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - type
+          - category
+          - sum
+          - date
+        properties:
+          type:
+            description: 'Type of the transaction'
+            type: string
+            enum: ['income', 'expense']
+          category:
+            description: 'Category of the transaction'
+            type: string
+            example: 'Main expenses'
+          sum:
+            description: 'Sum of the transaction'
+            type: number
+            example: 1000
+          date:
+            description: 'Date of the transaction'
+            type: string
+            format: date
+            example: '2025-03-01'
+          comment:
+            description: 'Comment to the transaction'
+            type: string
+            example: 'This is my main expense.'
+responses:
+  '201':
+    description: Creates a transaction
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: Successfully created a transaction!
+            data:
+              type: object
+              $ref: ../../components/schemas/transaction.yaml
+  '401':
+    $ref: '../../components/responses/401.yaml'
+  '400':
+    $ref: ../../components/responses/400-invalidIdOrBodyData.yaml

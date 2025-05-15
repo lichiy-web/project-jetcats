@@ -1,0 +1,38 @@
+type: object
+required:
+  - _id
+  - type
+  - category
+  - sum
+  - date
+  - userId
+properties:
+  _id:
+    description: "Transaction's id"
+    type: string
+    example: 65e4decdd286b30065d54af9
+  type:
+    description: 'Type of the transaction'
+    type: string
+    enum: ['income', 'expense']
+  category:
+    description: 'Category of the transaction'
+    type: string
+    example: 'Main expenses'
+  sum:
+    description: 'Sum of the transaction'
+    type: number
+    example: 1000
+  date:
+    description: 'Date of the transaction'
+    type: string
+    format: date
+    example: '2025-03-01'
+  comment:
+    description: 'Comment to the transaction'
+    type: string
+    example: 'This is my main expense.'
+  userId:
+    description: "App user's id"
+    type: string
+    example: 65e4decdd286b30065d54af9
