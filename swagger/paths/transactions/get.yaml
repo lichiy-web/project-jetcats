@@ -1,0 +1,113 @@
+      tags:
+        - Transactions
+      summary: Get all user transactions
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 1
+          description: Page number
+        - in: query
+          name: perPage
+          schema:
+            type: integer
+            default: 10
+          description: Number of items per page
+      responses:
+        '200':
+          description: Successfully found all transactions
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                  - message
+                  - data
+                properties:
+                  status:
+                    type: string
+                    example: 200
+                  message:
+                    type: string
+                    example: Successfully found all transactions
+                  data:
+                    type: object
+                    required:
+                      - transactions
+                      - page
+                      - perPage
+                      - totalItems
+                      - totalPages
+                      - hasNextPage
+                      - hasPreviousPage
+                    properties:
+                      transactions:
+                        type: array
+                        items:
+                          $ref: '../../components/schemas/Transaction.yaml'
+                      page:
+                        type: number
+                        example: 2
+                      perPage:
+                        type: number
+                        example: 4
+                      totalItems:
+                        type: number
+                        example: 6
+                      totalPages:
+                        type: number
+                        example: 5
+                      hasNextPage:
+                        type: boolean
+                        example: false
+                      hasPreviousPage:
+                        type: boolean
+                        example: true
+        '401':
+          description: Unauthorized — invalid or missing token
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                  - message
+                  - data
+                properties:
+                  status:
+                    type: string
+                    example: 401
+                  message:
+                    type: string
+                    example: Not authorized
+                  data:
+                    type: object
+                    required:
+                      - message
+                    properties:
+                      message:
+                        type: string
+                        example: 'Access token expired'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 500
+                  message:
+                    type: string
+                    example: Something went wrong
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Something went wrong on the server

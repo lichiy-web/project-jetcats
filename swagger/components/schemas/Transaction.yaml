@@ -1,0 +1,27 @@
+type: object
+required:
+  - _id
+  - type
+  - category
+  - amount
+  - date
+properties:
+  _id:
+    type: string
+    example: 664fd01ed8e7b3ce9ac1729f
+  type:
+    type: string
+    example: expense
+  category:
+    type: string
+    example: Food
+  sum:
+    type: number
+    example: 120
+  date:
+    type: string
+    format: date
+    example: 2024-05-01
+  description:
+    type: string
+    example: Grocery shopping
