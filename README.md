@@ -1,2 +1,2 @@
-# project-jatcats
+# project-jetcats
 Project by GoIT JetCats team
