@@ -8,4 +8,6 @@ const router = new Router();
 router.get('/', ctrlWrapper(rootController));
 router.use('/auth', authRouter);
 
+router.get('/transactions', ctrlWrapper(getAllTransactionsController));
+
 export default router;
