@@ -7,6 +7,7 @@ export const RES_MSG = {
     resetPwd: 'Password has been successfully reset!',
     getAllTransactions: 'Successfully found all transactions!',
     updateTransaction: 'Transaction updated successfully!',
+    getCurrentUser: 'Current user fetched successfully',
   },
   201: {
     default: 'Successfully created!',
