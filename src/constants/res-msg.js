@@ -29,6 +29,7 @@ export const RES_MSG = {
     default: 'Rout not found!',
     noContact: 'Contact not found!',
     noUser: 'User not found!',
+    noTransaction: 'Transaction not found',
   },
   500: {
     default: 'Something went wrong',
