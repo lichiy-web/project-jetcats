@@ -48,17 +48,6 @@ export const createTransactionController = async (req, res) => {
 };
 
 /**
- * Method: DELETE, Route: '/transactions/:transactionId'
- * Controller deletes the user's transaction by its ID.
- *
- * @param {object} req - http request
- * @param {object} res - http response
- */
-export const deleteTransactionController = async (req, res) => {
-  await deleteTransaction(); // доповнити код-заглушку
-};
-
-/**
  * Method: PATCH, Route: '/transactions/:transactionId'
  * Controller patchs the user's transaction at least with one field for update.
  *
@@ -98,4 +87,23 @@ export const patchTransactionController = async (req, res) => {
  */
 export const getSummaryController = async (req, res) => {
   await getSummary(); // доповнити код-заглушку
+};
+
+/**
+ * Method: DELETE, Route: '/transactions/:transactionId'
+ * Controller deletes the user's transaction by its ID.
+ *
+ * @param {object} req - http request
+ * @param {object} res - http response
+ */
+export const deleteTransactionController = async (req, res) => {
+  const { transactionId } = req.params;
+  const userId = req.user._id;
+  await deleteTransaction(transactionId, userId);
+
+  // if (!transaction) {
+  //   throw createHttpError(404, RES_MSG[404].noTransaction);
+  // }
+
+  res.status(204).send();
 };

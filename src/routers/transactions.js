@@ -12,6 +12,7 @@ import {
 } from '../controllers/transactions.js';
 
 const router = new Router();
+//? I would change 'router' for 'transactionRouter'.It's more clear
 router.use(authenticate);
 /**
  * Це просто заглушка, щоб лінтер не лаявся на невикористаний validateBody та
