@@ -1,3 +1,6 @@
+import authRouter from './auth.js';
+import transactionsRouter from './transactions.js';
+import categoriesRouter from './categories.js';
 import { Router } from 'express';
 import authRouter from './auth.js';
 import transactionsRouter from './transactions.js';
@@ -9,5 +12,6 @@ const router = new Router();
 router.get('/', ctrlWrapper(rootController));
 router.use('/auth', authRouter);
 router.use('/transactions', transactionsRouter);
+router.use('/categories', categoriesRouter);
 
 export default router;
