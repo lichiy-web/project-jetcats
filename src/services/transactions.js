@@ -1,5 +1,5 @@
-import TransactionCollection from '../db/models/Transaction.js';
-import calculatePaginationData from '../utils/calculatePaginationData.js';
+import { TransactionCollection } from '../db/models/Transaction.js';
+import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 
 export const getAllTransactions = async ({
   userId,
