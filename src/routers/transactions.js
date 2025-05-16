@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import { validateBody } from '../middlewares/validateBody.js';
 import { authenticate } from '../middlewares/authenticate.js';
+import { isValidId } from '../middlewares/isValidId.js';
 import {
   createTransactionController,
   deleteTransactionController,
@@ -10,7 +11,6 @@ import {
   getSummaryController,
 } from '../controllers/transactions.js';
 import { updateTransactionSchema } from '../validation/transactions.js';
-import { isValidId } from '../middlewares/isValidId.js';
 
 const router = new Router();
 /**
@@ -35,7 +35,7 @@ router.patch(
   isValidId,
   authenticate,
   validateBody(updateTransactionSchema),
-  ctrlWrapper(updateTransactionController),
+  ctrlWrapper(patchTransactionController),
 );
 
 export default router;
