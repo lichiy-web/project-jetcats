@@ -1,6 +1,7 @@
 import { getAllTransactions } from '../services/transactions.js';
-import { updateTransaction } from '../../services/transactions.js';
+import { updateTransaction } from '../services/transactions.js';
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
+import createHttpError from 'http-errors';
 
 export const getAllTransactionsController = async (req, res) => {
   const { page, perPage } = parsePaginationParams(req.query);
