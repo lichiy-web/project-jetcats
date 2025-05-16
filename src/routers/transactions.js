@@ -9,6 +9,7 @@ import {
   getAllTransactionsController,
   getSummaryController,
 } from '../controllers/transactions.js';
+import { transactionAddSchema } from '../validation/transactions.js';
 
 const router = new Router();
 /**
@@ -27,5 +28,12 @@ router.post(
 // Нижче код раутів.
 
 router.get('/summary', authenticate, ctrlWrapper(getSummaryController));
+
+router.post(
+  '/',
+  authenticate,
+  validateBody(transactionAddSchema),
+  ctrlWrapper(createTransactionController),
+);
 
 export default router;

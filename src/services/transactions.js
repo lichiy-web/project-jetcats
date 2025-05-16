@@ -21,8 +21,14 @@ export const getAllTransactions = async ({
   };
 };
 
-export const createTransaction = async ({ userId }) => {
-  // доповнити код-заглушку
+export const createTransaction = async ({ userId, transactionId, data }) => {
+  const transaction = await TransactionCollection.create({
+    userId,
+    transactionId,
+    ...data,
+  });
+
+  return transaction;
 };
 
 export const deleteTransaction = async ({ userId, transactionId }) => {
