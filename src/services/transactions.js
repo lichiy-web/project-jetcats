@@ -15,7 +15,7 @@ export const getAllTransactions = async ({
   const paginationData = calculatePaginationData(page, perPage, totalItems);
 
   return {
-    data: transactions,
+    transactions: transactions,
     ...paginationData,
   };
 };
