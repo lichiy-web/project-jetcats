@@ -1,5 +1,6 @@
 import TransactionCollection from '../db/models/Transaction.js';
 import calculatePaginationData from '../utils/calculatePaginationData.js';
+
 export const getAllTransactions = async ({
   userId,
   page = 1,
@@ -18,4 +19,25 @@ export const getAllTransactions = async ({
     transactions: transactions,
     ...paginationData,
   };
+};
+
+export const createTransaction = async ({ userId }) => {
+  // доповнити код-заглушку
+};
+
+export const deleteTransaction = async ({ userId, transactionId }) => {
+  // доповнити код-заглушку
+};
+
+export const updateTransaction = async ({
+  userId,
+  transactionId,
+  updateData,
+  options = {},
+}) => {
+  // доповнити код-заглушку
+};
+
+export const getSummary = async ({ userId }) => {
+  // доповнити код-заглушку
 };
