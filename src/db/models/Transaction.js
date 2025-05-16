@@ -25,5 +25,10 @@ export const transactionSchema = new Schema({
     maxlength: 192,
     default: '',
   },
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: 'user',
+    required: true,
+  },
 });
 export const TransactionCollection = model('transaction', transactionSchema);
