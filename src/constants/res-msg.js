@@ -5,6 +5,7 @@ export const RES_MSG = {
     refreshUserSession: 'Successfully refreshed a session!',
     sendResetEmail: 'Reset password email has been successfully sent.',
     resetPwd: 'Password has been successfully reset!',
+    fetchCategories: 'Successfully fetched categories',
   },
   201: {
     default: 'Successfully created!',

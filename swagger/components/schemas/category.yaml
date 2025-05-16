@@ -1,0 +1,16 @@
+type: object
+required:
+  - _id
+  - type
+  - name
+properties:
+  _id:
+    type: string
+    example: '663b7b4f2e1a4b001fabc123'
+  type:
+    type: string
+    enum: [income, expense]
+    example: expense
+  name:
+    type: string
+    example: 'Main expenses'
