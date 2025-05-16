@@ -44,7 +44,7 @@ export const getAllTransactionsController = async (req, res) => {
  * @returns {object} The new user's transaction object, created in DB.
  */
 export const createTransactionController = async (req, res) => {
-  await createTransaction(); //
+  await createTransaction(); // Доповнити код-заглушку
 };
 
 /**
