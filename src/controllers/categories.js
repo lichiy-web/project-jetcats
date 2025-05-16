@@ -1,4 +1,4 @@
-const AllCategoriesController = async (req, res) => {
+const getCategoriesController = async (req, res) => {
     const data = [];
     res.json({
       status: 200,
@@ -8,4 +8,4 @@ const AllCategoriesController = async (req, res) => {
 
   };
 
-export default AllCategoriesController;
+export default getCategoriesController;
