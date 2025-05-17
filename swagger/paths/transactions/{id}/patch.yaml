@@ -1,6 +1,7 @@
 tags:
   - Transactions
 summary: Update a transaction by ID
+operationId: patchTransaction
 description: Logged-in user can update their own transaction.
 security:
   - bearerAuth: []
@@ -17,7 +18,24 @@ requestBody:
   content:
     application/json:
       schema:
-        $ref: '../../components/schemas/UpdateTransaction.yaml'
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['income', 'expense']
+          category:
+            type: string
+            example: Food
+          amount:
+            type: number
+            example: 200
+          date:
+            type: string
+            format: date
+            example: 2025-05-10
+          comment:
+            type: string
+            example: Dinner with friends
 responses:
   '200':
     description: Transaction successfully updated
@@ -37,67 +55,12 @@ responses:
               type: string
               example: Transaction updated successfully
             data:
-              $ref: '../../components/schemas/Transaction.yaml'
+              $ref: '../../../components/schemas/Transaction.yaml'
   '400':
-    description: 'Invalid request (body or ID)'
-    content:
-      application/json:
-        schema:
-          type: object
-          properties:
-            status:
-              type: integer
-              example: 400
-            message:
-              type: string
-              example: 'Bad Request'
-            data:
-              type: object
-              properties:
-                errors:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      message:
-                        type: string
-                        example: 'Invalid ID format or missing required field'
+    $ref: ../../../components/responses/400-invalidIdOrBodyData.yaml
   '401':
-    description: Unauthorized — missing or invalid token
-    content:
-      application/json:
-        schema:
-          type: object
-          properties:
-            status:
-              type: integer
-              example: 401
-            message:
-              type: string
-              example: Transaction not found
+    $ref: ../../../components/responses/401.yaml
   '404':
-  description: Transaction not found
-  content:
-    application/json:
-      schema:
-        type: object
-        properties:
-          status:
-            type: integer
-            example: 404
-          message:
-            type: string
-            example: Transaction not found
+    $ref: ../../../components/responses/404-routeNotFound.yaml
   '500':
-    description: Internal server error
-    content:
-      application/json:
-        schema:
-          type: object
-          properties:
-            status:
-              type: integer
-              example: 500
-            message:
-              type: string
-              example: Something went wrong
+    $ref: ../../../components/responses/500.yaml
