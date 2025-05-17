@@ -33,3 +33,9 @@ export const updateTransactionSchema = Joi.object({
   date: Joi.date().iso().optional(),
   comment: Joi.string().min(2).max(192).optional(),
 }).min(1);
+
+export const periodSchema = Joi.string()
+  .pattern(/^\d{4}-\d{2}$/)
+  .messages({
+    'string.pattern.base': 'Period must be in the format YYYY-MM',
+  });

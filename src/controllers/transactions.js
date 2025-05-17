@@ -8,6 +8,8 @@ import {
 } from '../services/transactions.js';
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 import createHttpError from 'http-errors';
+import { parseNumber } from '../utils/parseNumber.js';
+import { periodSchema } from '../validation/transactions.js';
 
 /**
  * Method: GET, Route: '/transactions'
@@ -104,9 +106,26 @@ export const patchTransactionController = async (req, res) => {
  * @returns {object} Object with statistic of expenses by the catigories.
  */
 
-export const getSummaryController = async (req, res) => {
+export const getSummaryController = async (req, res, next) => {
   const userId = req.user._id;
-  const { year, month } = req.query;
+  const { period } = req.query;
+
+  const now = new Date();
+  const defaultYear = now.getFullYear();
+  const defaultMonth = now.getMonth() + 1;
+
+  if (period) {
+    const { error } = periodSchema.validate(period);
+    if (error) {
+      return next(createHttpError(400, error.details[0].message));
+    }
+  }
+
+  const [yearStr, monthStr] = period
+    ? period.split('-')
+    : [defaultYear, defaultMonth];
+  const year = parseNumber(yearStr, defaultYear);
+  const month = parseNumber(monthStr, defaultMonth);
 
   const summary = await getSummary({ userId, year, month });
 
