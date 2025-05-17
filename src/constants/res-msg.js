@@ -30,7 +30,7 @@ export const RES_MSG = {
   },
   404: {
     default: 'Rout not found!',
-    noContact: 'Contact not found!',
+    noTransaction: 'Transaction not found!',
     noUser: 'User not found!',
   },
   500: {
