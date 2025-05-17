@@ -28,6 +28,6 @@ router.post(
 
 router.get('/summary', authenticate, ctrlWrapper(getSummaryController));
 
-router.get('/transactions', ctrlWrapper(getAllTransactionsController));
+router.get('/', ctrlWrapper(getAllTransactionsController));
 
 export default router;
