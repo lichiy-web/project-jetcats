@@ -7,6 +7,6 @@ const currentRouter = Router();
 
 currentRouter.use(authenticate);
 
-currentRouter.get('/user/current', ctrlWrapper(getCurrentUserController));
+currentRouter.get('/', ctrlWrapper(getCurrentUserController));
 
 export default currentRouter;
