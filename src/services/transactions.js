@@ -3,6 +3,9 @@ import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 import { balanceDiff } from '../utils/balanceDiff.js';
 import { UserCollection } from '../db/models/User.js';
 import { RES_MSG } from '../constants/res-msg.js';
+import { createSummaryFromTransactions } from '../utils/createSummaryFromTransactions.js';
+import { getMonthPeriod } from '../utils/getMonthPeriod.js';
+import { getCategories } from './categories.js';
 
 export const getAllTransactions = async ({
   userId,
@@ -54,6 +57,11 @@ export const updateTransaction = async ({
   // доповнити код-заглушку
 };
 
-export const getSummary = async ({ userId }) => {
-  // доповнити код-заглушку
+export const getSummary = async ({ userId, year, month }) => {
+  const categories = await getCategories();
+  const transactions = await TransactionCollection.find({
+    userId,
+    date: getMonthPeriod(year, month),
+  });
+  return createSummaryFromTransactions(transactions, categories);
 };
