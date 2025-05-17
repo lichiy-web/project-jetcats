@@ -16,20 +16,15 @@ import {
 } from '../validation/transactions.js';
 
 const router = new Router();
-/**
- * Це просто заглушка, щоб лінтер не лаявся на невикористаний validateBody та
- * контролери. Після створення всіх ріутів буде видалено.
- */
-router.post('/stubForValidateBody', deleteTransactionController);
+router.use(authenticate);
 
-// Нижче код раутів.
-
-router.get('/summary', authenticate, ctrlWrapper(getSummaryController));
+router.get('/summary', ctrlWrapper(getSummaryController));
 
 router.delete(
-  '/transactions/:transactionId',
-  authenticate,
-router.get('/summary', ctrlWrapper(getSummaryController));
+  '/:transactionId',
+  isValidId,
+  ctrlWrapper(deleteTransactionController),
+);
 router.get('/', ctrlWrapper(getAllTransactionsController));
 router.post(
   '/',
@@ -40,7 +35,8 @@ router.post(
 router.patch(
   '/:transactionId',
   isValidId,
-  ctrlWrapper(deleteTransactionController),
+  validateBody(updateTransactionSchema),
+  ctrlWrapper(patchTransactionController),
 );
 
 export default router;

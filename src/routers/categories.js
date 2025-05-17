@@ -4,7 +4,8 @@ import { authenticate } from '../middlewares/authenticate.js';
 import { getCategoriesController } from '../controllers/categories.js';
 
 const router = new Router();
+router.use(authenticate);
 
-router.get('/', authenticate, ctrlWrapper(getCategoriesController));
+router.get('/', ctrlWrapper(getCategoriesController));
 
 export default router;
