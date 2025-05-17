@@ -12,6 +12,7 @@ export const RES_MSG = {
   201: {
     default: 'Successfully created!',
     registerUser: 'Successfully registered an user!',
+    addTransaction: 'Successfully created a transaction!',
   },
   204: { default: '' },
   400: { default: 'Bad request' },
