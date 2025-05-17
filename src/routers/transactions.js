@@ -10,7 +10,10 @@ import {
   getAllTransactionsController,
   getSummaryController,
 } from '../controllers/transactions.js';
-import { updateTransactionSchema } from '../validation/transactions.js';
+import {
+  transactionAddSchema,
+  updateTransactionSchema,
+} from '../validation/transactions.js';
 
 const router = new Router();
 router.use(authenticate);
@@ -32,6 +35,13 @@ router.post(
 
 router.get('/summary', ctrlWrapper(getSummaryController));
 router.get('/', ctrlWrapper(getAllTransactionsController));
+router.post(
+  '/',
+  authenticate,
+  validateBody(transactionAddSchema),
+  ctrlWrapper(createTransactionController),
+);
+
 router.patch(
   '/:transactionId',
   isValidId,
