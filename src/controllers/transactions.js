@@ -63,7 +63,11 @@ export const createTransactionController = async (req, res) => {
  * @param {object} res - http response
  */
 export const deleteTransactionController = async (req, res) => {
-  await deleteTransaction(); // доповнити код-заглушку
+  const { transactionId } = req.params;
+  const userId = req.user._id;
+  await deleteTransaction(transactionId, userId);
+
+  res.status(204).send();
 };
 
 /**
