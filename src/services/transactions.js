@@ -1,5 +1,8 @@
 import { TransactionCollection } from '../db/models/Transaction.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
+import { balanceDiff } from '../utils/balanceDiff.js';
+import { UserCollection } from '../db/models/User.js';
+import { RES_MSG } from '../constants/res-msg.js';
 import { createSummaryFromTransactions } from '../utils/createSummaryFromTransactions.js';
 import { getMonthPeriod } from '../utils/getMonthPeriod.js';
 import { getCategories } from './categories.js';
@@ -24,9 +27,22 @@ export const getAllTransactions = async ({
   };
 };
 
-export const createTransaction = async ({ userId }) => {
-  // доповнити код-заглушку
-};
+export const createTransaction = async ({ userId, sum, type }) => {
+  
+    const newTransaction = await TransactionCollection.create({ userId, sum, type });
+    const user = await UserCollection.findById(userId);
+  
+    const diff = balanceDiff(type, sum);
+    user.balance += diff;
+    await user.save();
+  
+    return {
+    message: RES_MSG[201].default,
+    transaction: newTransaction,
+    newBalance: user.balance,
+    };
+  
+  };
 
 export const deleteTransaction = async ({ userId, transactionId }) => {
   // доповнити код-заглушку
