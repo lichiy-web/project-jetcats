@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import { validateBody } from '../middlewares/validateBody.js';
 import { authenticate } from '../middlewares/authenticate.js';
+import { isValidId } from '../middlewares/isValidId.js';
 import {
   createTransactionController,
   deleteTransactionController,
@@ -9,6 +10,7 @@ import {
   getAllTransactionsController,
   getSummaryController,
 } from '../controllers/transactions.js';
+import { updateTransactionSchema } from '../validation/transactions.js';
 
 const router = new Router();
 /**
@@ -27,7 +29,13 @@ router.post(
 // Нижче код раутів.
 
 router.get('/summary', authenticate, ctrlWrapper(getSummaryController));
-
 router.get('/', ctrlWrapper(getAllTransactionsController));
+router.patch(
+  '/:transactionId',
+  isValidId,
+  authenticate,
+  validateBody(updateTransactionSchema),
+  ctrlWrapper(patchTransactionController),
+);
 
 export default router;
