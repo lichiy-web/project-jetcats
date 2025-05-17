@@ -46,12 +46,12 @@ export const getAllTransactionsController = async (req, res) => {
  */
 export const createTransactionController = async (req, res) => {
   const { user } = req;
-  const transaction = await createTransaction({ ...req.body, user });
+  const transactionData = await createTransaction({ ...req.body, user });
   const { addTransaction } = RES_MSG[201];
   res.status(201).json({
     status: 201,
     message: addTransaction,
-    data: transaction,
+    data: transactionData,
   });
 };
 
@@ -83,20 +83,20 @@ export const patchTransactionController = async (req, res) => {
   const { user } = req;
   const updateData = req.body;
 
-  const updatedTransaction = await updateTransaction({
+  const updatedTransactionData = await updateTransaction({
     user,
     transactionId,
     updateData,
   });
 
-  if (!updatedTransaction) {
+  if (!updatedTransactionData) {
     throw createHttpError(404, RES_MSG[404].noTransaction);
   }
 
   res.status(200).json({
     status: 200,
     message: RES_MSG[200].updateTransaction,
-    data: updatedTransaction,
+    data: updatedTransactionData,
   });
 };
 
