@@ -1,0 +1,31 @@
+type: object
+required:
+  - id
+  - type
+  - category
+  - amount
+  - date
+  - userId
+properties:
+  id:
+    type: string
+    example: 664fd01ed8e7b3ce9ac1729f
+  type:
+    type: string
+    example: expense
+  category:
+    type: string
+    example: Food
+  sum:
+    type: number
+    example: 120
+  date:
+    type: string
+    format: date
+    example: 2024-05-01
+  comment:
+    type: string
+    example: Grocery shopping
+  userId:
+    type: string
+    example: 7b3ce9ac1729f664fd01ed8e
