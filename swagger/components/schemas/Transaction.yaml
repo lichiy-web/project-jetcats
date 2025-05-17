@@ -1,0 +1,31 @@
+type: object
+required:
+  - type
+  - category
+  - sum
+  - date
+properties:
+  _id:
+    type: string
+    example: 664fd01ed8e7b3ce9ac1729f
+  type:
+    type: string
+    enum: ['income', 'expense']
+    example: income
+  category:
+    type: string
+    example: Food
+  sum:
+    type: number
+    minimum: 0.01
+    maximum: 1000000
+    example: 1500
+  date:
+    type: string
+    format: date
+    example: 2025-05-01
+  comment:
+    type: string
+    minLength: 2
+    maxLength: 192
+    example: Grocery shopping
