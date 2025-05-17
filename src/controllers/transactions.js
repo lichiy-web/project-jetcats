@@ -8,6 +8,7 @@ import {
 } from '../services/transactions.js';
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 import createHttpError from 'http-errors';
+import { parsePeriod } from '../utils/parsePeriod.js';
 
 /**
  * Method: GET, Route: '/transactions'
@@ -28,7 +29,7 @@ export const getAllTransactionsController = async (req, res) => {
     perPage,
   });
 
-  res.json({
+  res.status(200).json({
     status: 200,
     message: RES_MSG[200].getAllTransactions,
     data: transactions,
@@ -44,7 +45,14 @@ export const getAllTransactionsController = async (req, res) => {
  * @returns {object} The new user's transaction object, created in DB.
  */
 export const createTransactionController = async (req, res) => {
-  await createTransaction(); // Доповнити код-заглушку
+  const { user } = req;
+  const transaction = await createTransaction({ ...req.body, user });
+  const { addTransaction } = RES_MSG[201];
+  res.status(201).json({
+    status: 201,
+    message: addTransaction,
+    data: transaction,
+  });
 };
 
 /**
@@ -68,17 +76,17 @@ export const deleteTransactionController = async (req, res) => {
  */
 export const patchTransactionController = async (req, res) => {
   const { transactionId } = req.params;
-  const userId = req.user._id;
+  const { user } = req;
   const updateData = req.body;
 
   const updatedTransaction = await updateTransaction({
-    userId,
+    user,
     transactionId,
     updateData,
   });
 
   if (!updatedTransaction) {
-    throw createHttpError(404, 'Transaction not found');
+    throw createHttpError(404, RES_MSG[404].noTransaction);
   }
 
   res.status(200).json({
@@ -97,5 +105,13 @@ export const patchTransactionController = async (req, res) => {
  * @returns {object} Object with statistic of expenses by the catigories.
  */
 export const getSummaryController = async (req, res) => {
-  await getSummary(); // доповнити код-заглушку
+  const userId = req.user._id;
+  const { year, month } = parsePeriod(req.query.period);
+  const summary = await getSummary({ userId, year, month });
+
+  res.status(200).json({
+    status: 200,
+    message: RES_MSG[200].getSummary,
+    data: summary,
+  });
 };

@@ -8,7 +8,7 @@ import { parseNumber } from './parseNumber.js';
  * @param {String | Number | Boolean | Date} type - build-in constructor of the appropriate primitive data type
  * @returns {string | number | boolean | undefined | date}
  */
-const parseValueOfType = (value, type) => {
+export const parseValueOfType = (value, type) => {
   if (![String, Number, Boolean].includes(type)) return;
 
   const parsers = new Map([

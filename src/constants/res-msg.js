@@ -7,7 +7,8 @@ export const RES_MSG = {
     resetPwd: 'Password has been successfully reset!',
     getAllTransactions: 'Successfully found all transactions!',
     updateTransaction: 'Transaction updated successfully!',
-    getCurrentUser: 'Current user fetched successfully',
+    getCurrentUser: 'Current user fetched successfully!',
+    getSummary: 'Successfully fetched summary!',
   },
   201: {
     default: 'Successfully created!',
@@ -27,7 +28,7 @@ export const RES_MSG = {
   },
   404: {
     default: 'Rout not found!',
-    noContact: 'Contact not found!',
+    noTransaction: 'Transaction not found!',
     noUser: 'User not found!',
     noTransaction: 'Transaction not found',
   },
