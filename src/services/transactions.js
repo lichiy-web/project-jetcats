@@ -1,8 +1,6 @@
 import { TransactionCollection } from '../db/models/Transaction.js';
-import { UserCollection } from '../db/models/User.js';
 import { balanceDiff } from '../utils/balanceDiff.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
-import { balanceDiff } from '../utils/balanceDiff.js';
 import { createSummaryFromTransactions } from '../utils/createSummaryFromTransactions.js';
 import { getMonthPeriod } from '../utils/getMonthPeriod.js';
 import { getCategories } from './categories.js';
@@ -51,12 +49,12 @@ export const deleteTransaction = async ({ userId, transactionId }) => {
 
 export const updateTransaction = async ({
   transactionId,
-  userId,
+  user,
   updateData,
 }) => {
   const previousTransaction = await TransactionCollection.findOne({
     _id: transactionId,
-    userId,
+    userId: user._id,
   });
 
   if (!previousTransaction) return null;
@@ -71,10 +69,8 @@ export const updateTransaction = async ({
   const newAmount = balanceDiff(newType, newSum);
 
   const balanceChange = newAmount - previousAmount;
-
-  await UserCollection.findByIdAndUpdate(userId, {
-    $inc: { balance: balanceChange },
-  });
+  user.balance += balanceChange;
+  await user.save();
 
   const updatedTransaction = await TransactionCollection.findByIdAndUpdate(
     transactionId,
@@ -82,7 +78,10 @@ export const updateTransaction = async ({
     { new: true },
   );
 
-  return updatedTransaction;
+  return {
+    transaction: updatedTransaction,
+    balance: user.balance,
+  };
 };
 
 export const getSummary = async ({ userId, year, month }) => {

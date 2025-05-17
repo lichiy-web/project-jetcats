@@ -76,11 +76,11 @@ export const deleteTransactionController = async (req, res) => {
  */
 export const patchTransactionController = async (req, res) => {
   const { transactionId } = req.params;
-  const userId = req.user._id;
+  const { user } = req;
   const updateData = req.body;
 
   const updatedTransaction = await updateTransaction({
-    userId,
+    user,
     transactionId,
     updateData,
   });
