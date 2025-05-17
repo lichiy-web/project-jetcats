@@ -85,7 +85,7 @@ export const patchTransactionController = async (req, res) => {
   });
 
   if (!updatedTransaction) {
-    throw createHttpError(404, 'Transaction not found');
+    throw createHttpError(404, RES_MSG[404].noTransaction);
   }
 
   res.status(200).json({
