@@ -8,6 +8,7 @@ export const RES_MSG = {
     getAllTransactions: 'Successfully found all transactions!',
     updateTransaction: 'Transaction updated successfully!',
     getCurrentUser: 'Current user fetched successfully',
+    fetchCategories: 'Successfully fetched categories',
   },
   201: {
     default: 'Successfully created!',
