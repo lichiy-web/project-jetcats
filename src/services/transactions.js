@@ -44,7 +44,7 @@ export const createTransaction = async ({ user, sum, type, ...params }) => {
 };
 
 export const deleteTransaction = async ({ userId, transactionId }) => {
-  // доповнити код-заглушку
+  await TransactionCollection.findOneAndDelete({ _id: transactionId, userId });
 };
 
 export const updateTransaction = async ({
