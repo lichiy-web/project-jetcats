@@ -44,7 +44,14 @@ export const getAllTransactionsController = async (req, res) => {
  * @returns {object} The new user's transaction object, created in DB.
  */
 export const createTransactionController = async (req, res) => {
-  await createTransaction(); // Доповнити код-заглушку
+  const userId = req.user._id;
+  const transaction = await createTransaction({ ...req.body, userId });
+  const { addTransaction } = RES_MSG[201];
+  res.status(201).json({
+    status: 201,
+    message: addTransaction,
+    data: transaction,
+  });
 };
 
 /**
