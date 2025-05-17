@@ -9,6 +9,16 @@ import {
 } from '../services/auth.js';
 import { setupSession } from '../utils/setupSession.js';
 
+export const getCurrentUserController = async (req, res) => {
+  res.status(200).json({
+    status: '200',
+    message: RES_MSG[200].getCurrentUser,
+    data: {
+      user: req.user,
+    },
+  });
+};
+
 export const registerUserController = async (req, res) => {
   const newUser = await registerUser(req.body);
 
