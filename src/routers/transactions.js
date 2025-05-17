@@ -29,7 +29,7 @@ router.post(
 // Нижче код раутів.
 
 router.get('/summary', authenticate, ctrlWrapper(getSummaryController));
-
+router.get('/', ctrlWrapper(getAllTransactionsController));
 router.patch(
   '/:transactionId',
   isValidId,
