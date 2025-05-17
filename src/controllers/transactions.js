@@ -29,7 +29,7 @@ export const getAllTransactionsController = async (req, res) => {
     perPage,
   });
 
-  res.json({
+  res.status(200).json({
     status: 200,
     message: RES_MSG[200].getAllTransactions,
     data: transactions,
