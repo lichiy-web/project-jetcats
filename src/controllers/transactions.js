@@ -8,6 +8,7 @@ import {
 } from '../services/transactions.js';
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 import createHttpError from 'http-errors';
+import { parsePeriod } from '../utils/parsePeriod.js';
 
 /**
  * Method: GET, Route: '/transactions'
@@ -104,5 +105,13 @@ export const patchTransactionController = async (req, res) => {
  * @returns {object} Object with statistic of expenses by the catigories.
  */
 export const getSummaryController = async (req, res) => {
-  await getSummary(); // доповнити код-заглушку
+  const userId = req.user._id;
+  const { year, month } = parsePeriod(req.query.period);
+  const summary = await getSummary({ userId, year, month });
+
+  res.status(200).json({
+    status: 200,
+    message: RES_MSG[200].getSummary,
+    data: summary,
+  });
 };
