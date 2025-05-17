@@ -2,7 +2,6 @@ import { Router } from 'express';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import { validateBody } from '../middlewares/validateBody.js';
 import { authenticate } from '../middlewares/authenticate.js';
-import { isValidId } from '../middlewares/isValidId.js';
 import {
   createTransactionController,
   deleteTransactionController,
@@ -10,11 +9,9 @@ import {
   getAllTransactionsController,
   getSummaryController,
 } from '../controllers/transactions.js';
-import { updateTransactionSchema } from '../validation/transactions.js';
+import { isValidId } from '../middlewares/isValidId.js';
 
 const router = new Router();
-router.use(authenticate);
-
 /**
  * Це просто заглушка, щоб лінтер не лаявся на невикористаний validateBody та
  * контролери. Після створення всіх ріутів буде видалено.
@@ -30,13 +27,13 @@ router.post(
 
 // Нижче код раутів.
 
-router.get('/summary', ctrlWrapper(getSummaryController));
-router.get('/', ctrlWrapper(getAllTransactionsController));
-router.patch(
-  '/:transactionId',
+router.get('/summary', authenticate, ctrlWrapper(getSummaryController));
+
+router.delete(
+  '/transactions/:transactionId',
+  authenticate,
   isValidId,
-  validateBody(updateTransactionSchema),
-  ctrlWrapper(patchTransactionController),
+  ctrlWrapper(deleteTransactionController),
 );
 
 export default router;
