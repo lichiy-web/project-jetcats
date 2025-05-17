@@ -9,6 +9,7 @@ import {
   getAllTransactionsController,
   getSummaryController,
 } from '../controllers/transactions.js';
+import { isValidId } from '../middlewares/isValidId.js';
 
 const router = new Router();
 /**
@@ -27,5 +28,12 @@ router.post(
 // Нижче код раутів.
 
 router.get('/summary', authenticate, ctrlWrapper(getSummaryController));
+
+router.delete(
+  '/transactions/:transactionId',
+  authenticate,
+  isValidId,
+  ctrlWrapper(deleteTransactionController),
+);
 
 export default router;
