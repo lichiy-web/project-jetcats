@@ -3,11 +3,11 @@ import { isValidObjectId } from 'mongoose';
 import { RES_MSG } from '../constants/res-msg.js';
 
 export const isValidId = (req, res, next) => {
-  const { id } = req.params;
-  if (!isValidObjectId(id)) {
+  const { transactionId } = req.params;
+  if (!isValidObjectId(transactionId)) {
     next(
       createHttpError(400, RES_MSG[400].default, {
-        details: `The following id: ${id} is not valid`,
+        details: `The following id: ${transactionId} is not valid`,
       }),
     );
   }

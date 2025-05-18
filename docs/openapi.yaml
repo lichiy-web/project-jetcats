@@ -46,6 +46,9 @@ paths:
   /transactions/{transactionId}:
     patch: 
       $ref: '../swagger/paths/transactions/{id}/patch.yaml'
+  /transactions:
+    get: 
+      $ref: '../swagger/paths/transactions/get.yaml'
 components:
   securitySchemes:
     bearerAuth:

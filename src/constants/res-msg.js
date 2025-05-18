@@ -7,13 +7,14 @@ export const RES_MSG = {
     resetPwd: 'Password has been successfully reset!',
     getAllTransactions: 'Successfully found all transactions!',
     updateTransaction: 'Transaction updated successfully!',
-    getCurrentUser: 'Current user fetched successfully',
-    fetchCategories: 'Successfully fetched categories',
+    getCurrentUser: 'Current user fetched successfully!',
+    getSummary: 'Successfully fetched summary!',
+    getCategories: 'Successfully fetched categories!',
+    deleteTransaction: 'Successfully deleted a transaction!',
   },
   201: {
     default: 'Successfully created!',
     registerUser: 'Successfully registered an user!',
-    addTransaction: 'Successfully created a transaction!',
   },
   204: { default: '' },
   400: { default: 'Bad request' },
@@ -29,7 +30,7 @@ export const RES_MSG = {
   },
   404: {
     default: 'Rout not found!',
-    noContact: 'Contact not found!',
+    noTransaction: 'Transaction not found!',
     noUser: 'User not found!',
   },
   500: {

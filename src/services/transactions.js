@@ -1,5 +1,9 @@
 import { TransactionCollection } from '../db/models/Transaction.js';
+import { balanceDiff } from '../utils/balanceDiff.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
+import { createSummaryFromTransactions } from '../utils/createSummaryFromTransactions.js';
+import { getMonthPeriod } from '../utils/getMonthPeriod.js';
+import { getCategories } from './categories.js';
 
 export const getAllTransactions = async ({
   userId,
@@ -21,23 +25,86 @@ export const getAllTransactions = async ({
   };
 };
 
-export const createTransaction = async ({ userId }) => {
-  // доповнити код-заглушку
+export const createTransaction = async ({ user, sum, type, ...params }) => {
+  const newTransaction = await TransactionCollection.create({
+    userId: user._id,
+    sum,
+    type,
+    ...params,
+  });
+
+  const diff = balanceDiff(type, sum);
+  user.balance += diff;
+  await user.save();
+
+  return {
+    transaction: newTransaction,
+    balance: user.balance,
+  };
 };
 
-export const deleteTransaction = async ({ userId, transactionId }) => {
-  // доповнити код-заглушку
+export const deleteTransaction = async ({ user, transactionId }) => {
+  const deletedTransaction = await TransactionCollection.findOneAndDelete({
+    _id: transactionId,
+    userId: user._id,
+  });
+
+  if (deletedTransaction) {
+    const { type, sum } = deletedTransaction;
+    const diff = balanceDiff(type, sum);
+    user.balance -= diff;
+    await user.save();
+  }
+  return { transaction: null, balance: user.balance };
 };
 
 export const updateTransaction = async ({
-  userId,
   transactionId,
+  user,
   updateData,
-  options = {},
 }) => {
-  // доповнити код-заглушку
+  const previousTransaction = await TransactionCollection.findOne({
+    _id: transactionId,
+    userId: user._id,
+  });
+
+  if (!previousTransaction) return null;
+
+  const { type: prevType, sum: prevSum } = previousTransaction;
+  let { type: newType, sum: newSum } = updateData;
+
+  newType ??= prevType;
+  newSum ??= prevSum;
+
+  const previousAmount = balanceDiff(prevType, prevSum);
+  const newAmount = balanceDiff(newType, newSum);
+
+  const balanceChange = newAmount - previousAmount;
+  user.balance += balanceChange;
+  await user.save();
+
+  const updatedTransaction = await TransactionCollection.findByIdAndUpdate(
+    transactionId,
+    updateData,
+    { new: true },
+  );
+
+  return {
+    transaction: updatedTransaction,
+    balance: user.balance,
+  };
 };
 
-export const getSummary = async ({ userId }) => {
-  // доповнити код-заглушку
+export const getSummary = async ({ userId, year, month }) => {
+  const categories = await getCategories();
+  const transactions = await TransactionCollection.find({
+    userId,
+    date: getMonthPeriod(year, month),
+  });
+  return createSummaryFromTransactions({
+    transactions,
+    categories,
+    year,
+    month,
+  });
 };

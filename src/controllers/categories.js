@@ -11,11 +11,10 @@ import { getCategories } from '../services/categories.js';
  */
 export const getCategoriesController = async (req, res) => {
   const categories = await getCategories();
-  const { fetchCategories } = RES_MSG[200];
-
+  console.dir(categories[1].toString());
   res.status(200).json({
     status: 200,
-    message: fetchCategories,
+    message: RES_MSG[200].getCategories,
     data: categories,
   });
 };
