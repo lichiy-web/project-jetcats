@@ -366,7 +366,7 @@
         }
       }
     },
-    "/auth/transactions-post": {
+    "/transactions": {
       "post": {
         "tags": [
           "Transactions"
@@ -432,33 +432,7 @@
         },
         "responses": {
           "201": {
-            "description": "Creates a transaction",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
-                  "properties": {
-                    "status": {
-                      "type": "integer",
-                      "example": 201
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Successfully created!"
-                    },
-                    "data": {
-                      "type": "object",
-                      "$ref": "#/components/schemas/transactions"
-                    }
-                  }
-                }
-              }
-            }
+            "$ref": "#/components/responses/transactionPost-201"
           },
           "401": {
             "$ref": "#/components/responses/401"
@@ -1399,6 +1373,34 @@
                       }
                     }
                   }
+                }
+              }
+            }
+          }
+        }
+      },
+      "transactionPost-201": {
+        "description": "Successfully creates a transaction.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 201
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Successfully created!"
+                },
+                "data": {
+                  "$ref": "#/components/schemas/transactions"
                 }
               }
             }

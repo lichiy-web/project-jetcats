@@ -43,26 +43,8 @@ requestBody:
             example: 65e4decdd286b30065d54af9
 responses:
   '201':
-    description: Creates a transaction
-    content:
-      application/json:
-        schema:
-          type: object
-          required:
-            - status
-            - message
-            - data
-          properties:
-            status:
-              type: integer
-              example: 201
-            message:
-              type: string
-              example: Successfully created!
-            data:
-              type: object
-              $ref: ../../../components/schemas/transactions.yaml
+    $ref: ../../components/responses/transactionPost-201.yaml
   '401':
-    $ref: '../../../components/responses/401.yaml'
+    $ref: '../../components/responses/401.yaml'
   '500':
-    $ref: '../../../components/responses/500.yaml'
+    $ref: '../../components/responses/500.yaml'

@@ -43,9 +43,9 @@ paths:
   /auth/confirm-oauth:
     post:
       $ref: ../swagger/paths/auth/confirm-oauth/post.yaml
-  /auth/transactions-post:
+  /transactions:
     post:
-      $ref: ../swagger/paths/auth/transactions-post/post.yaml
+      $ref: ../swagger/paths/transactions/post.yaml
 components:
   securitySchemes:
     bearerAuth:
