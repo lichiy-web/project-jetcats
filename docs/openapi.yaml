@@ -43,6 +43,9 @@ paths:
   /auth/confirm-oauth:
     post:
       $ref: ../swagger/paths/auth/confirm-oauth/post.yaml
+  /transactions/{transactionId}:
+    patch: 
+      $ref: '../swagger/paths/transactions/{id}/patch.yaml'
   /transactions:
     get: 
       $ref: '../swagger/paths/transactions/get.yaml'
