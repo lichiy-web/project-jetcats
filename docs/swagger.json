@@ -365,6 +365,109 @@
           }
         }
       }
+    },
+    "/auth/transactions-post": {
+      "post": {
+        "tags": [
+          "Transactions"
+        ],
+        "summary": "Create transactions",
+        "operationId": "createtransactions",
+        "description": "Create a transactions with payload",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "type",
+                  "category",
+                  "sum",
+                  "date"
+                ],
+                "properties": {
+                  "type": {
+                    "description": "transactions's type",
+                    "type": "string",
+                    "enum": [
+                      "income",
+                      "expense"
+                    ]
+                  },
+                  "category": {
+                    "description": "transactions's category",
+                    "type": "string",
+                    "example": "Car"
+                  },
+                  "sum": {
+                    "description": "transactions's sum",
+                    "type": "number",
+                    "example": 300
+                  },
+                  "date": {
+                    "description": "transactions's date",
+                    "type": "string",
+                    "format": "date",
+                    "example": "2025-05-18"
+                  },
+                  "comment": {
+                    "description": "transaction is related to car",
+                    "type": "string",
+                    "example": "transaction is related to car"
+                  },
+                  "userId": {
+                    "description": "transactions's userId",
+                    "type": "string",
+                    "example": "65e4decdd286b30065d54af9"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Creates a transaction",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 201
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully created!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/transactions"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -464,9 +567,101 @@
             "example": "UseSafePasSwoRds_likEThiS12$-"
           }
         }
+      },
+      "transactions": {
+        "type": "object",
+        "required": [
+          "type",
+          "category",
+          "sum",
+          "date",
+          "userId"
+        ],
+        "properties": {
+          "type": {
+            "description": "transactions's type",
+            "type": "string",
+            "enum": [
+              "income",
+              "expense"
+            ]
+          },
+          "category": {
+            "description": "transactions's category",
+            "type": "string",
+            "example": "Car"
+          },
+          "sum": {
+            "description": "transactions's sum",
+            "type": "number",
+            "example": 300
+          },
+          "date": {
+            "description": "transactions's date",
+            "type": "string",
+            "format": "date",
+            "example": "2025-05-18"
+          },
+          "comment": {
+            "description": "transaction is related to car",
+            "type": "string",
+            "example": "transaction is related to car"
+          },
+          "userId": {
+            "description": "transactions's userId",
+            "type": "string",
+            "example": "65e4decdd286b30065d54af9"
+          }
+        }
       }
     },
     "responses": {
+      "401": {
+        "description": "Unauthorized request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 401
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Unauthorized"
+                },
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "message"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "enum": [
+                        "Session not found",
+                        "User not found",
+                        "Auth header should be of type Bearer",
+                        "Please provide Authorization header",
+                        "Access token expired",
+                        "Refresh token expired",
+                        "Token is expired or invalid."
+                      ],
+                      "example": "Access token expired"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       "500": {
         "description": "Internal Server Error",
         "content": {
