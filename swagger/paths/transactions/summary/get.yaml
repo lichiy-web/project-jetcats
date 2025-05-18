@@ -12,7 +12,7 @@ parameters:
     description: Period in YYYY-MM format (e.g. "2025-05"). Defaults to current month if not provided.
     schema:
       type: string
-      example: '2024-05'
+      example: '2025-05'
 responses:
   '200':
     description: Summary successfully retrieved
@@ -30,16 +30,65 @@ responses:
               example: 200
             message:
               type: string
-              example: Summary retrieved successfully
+              example: Successfully fetched summary
             data:
               type: object
-              example:
+              required:
+                - income
+                - expense
+                - period
+              properties:
                 income:
-                  Salary: 5000
-                  Freelance: 1000
+                  type: object
+                  required:
+                    - category
+                    - total
+                  properties:
+                    category:
+                      type: object
+                      additionalProperties:
+                        type: number
+                      example:
+                        Incomes: 5000
+                    total:
+                      type: number
+                      example: 5000
                 expense:
-                  Food: 300
-                  Rent: 1000
+                  type: object
+                  required:
+                    - category
+                    - total
+                  properties:
+                    category:
+                      type: object
+                      additionalProperties:
+                        type: number
+                      example:
+                        Main expenses: 0
+                        Products: 0
+                        Car: 0
+                        Self care: 0
+                        Child care: 1300
+                        Household products: 100
+                        Education: 0
+                        Other expenses: 200
+                        Leisure: 0
+                        Entertainment: 0
+                    total:
+                      type: number
+                      example: 1600
+                period:
+                  type: object
+                  required:
+                    - year
+                    - month
+                  properties:
+                    year:
+                      type: integer
+                      example: 2025
+                    month:
+                      type: integer
+                      example: 5
   '401':
     description: Unauthorized — missing or invalid token
     content:
