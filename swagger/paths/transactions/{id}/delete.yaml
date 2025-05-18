@@ -1,0 +1,40 @@
+tags:
+  - Transactions
+summary: Delete a transaction by ID
+description:
+  Deletes a transaction belonging to the authenticated user, specified by its
+  ID.
+operationId: deleteTransaction
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: transactionId
+    schema:
+      type: string
+    required: true
+    description: The ID of the transaction to delete (MongoDB ObjectId)
+responses:
+  '200':
+    description: Transaction deleted successfully
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Transaction deleted successfully
+            data:
+              $ref: '../../../components/schemas/Transaction.yaml'
+  '400':
+    $ref: ../../../components/responses/400-invalidId.yaml
+  '401':
+    $ref: ../../../components/responses/401.yaml
+  '404':
+    $ref: ../../../components/responses/404-transactionNotFound.yaml
+  '500':
+    $ref: ../../../components/responses/500.yaml
