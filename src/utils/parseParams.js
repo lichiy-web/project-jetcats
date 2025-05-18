@@ -6,10 +6,10 @@ import { parseNumber } from './parseNumber.js';
  * Method casts a string passed as a value parameter to primitive data type of the appropriate constructor passed as a type parameter if possible, if not method returns undefined.
  * @param {string} value - a string of primitive data type to parse
  * @param {String | Number | Boolean | Date} type - build-in constructor of the appropriate primitive data type
- * @returns {string | number | boolean | undefined | date}
+ * @returns {string | number | boolean | date | undefined}
  */
 export const parseValueOfType = (value, type) => {
-  if (![String, Number, Boolean].includes(type)) return;
+  if (![String, Number, Boolean, Date].includes(type)) return;
 
   const parsers = new Map([
     [String, value => value],
