@@ -1,4 +1,9 @@
-export const createSummaryFromTransactions = (transactions, categories) => {
+export const createSummaryFromTransactions = ({
+  transactions,
+  categories,
+  year,
+  month,
+}) => {
   const initSummary = categories.reduce((summary, { name, type }) => {
     summary[type] ??= { category: {}, total: 0 };
     summary[type].category[name] = 0;
@@ -13,6 +18,6 @@ export const createSummaryFromTransactions = (transactions, categories) => {
     },
     initSummary,
   );
-
+  summary.period = { year, month };
   return summary;
 };

@@ -24,7 +24,7 @@ export const transactionSchema = new Schema(
       type: String,
       minlength: 2,
       maxlength: 192,
-      default: '',
+      // default: null,
     },
     userId: {
       type: Schema.Types.ObjectId,

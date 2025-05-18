@@ -90,5 +90,10 @@ export const getSummary = async ({ userId, year, month }) => {
     userId,
     date: getMonthPeriod(year, month),
   });
-  return createSummaryFromTransactions(transactions, categories);
+  return createSummaryFromTransactions({
+    transactions,
+    categories,
+    year,
+    month,
+  });
 };
