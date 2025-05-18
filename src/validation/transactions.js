@@ -16,7 +16,7 @@ export const transactionAddSchema = Joi.object({
     'number.max': 'Sum must be less than or equal to 1000000',
     'number.base': 'Sum must be a number',
   }),
-  date: Joi.date().iso().required().messages({
+  date: Joi.date().iso().max('now').required().messages({
     'date.base': 'Date must be a valid ISO date string',
     'any.required': 'Date is required',
   }),
@@ -30,6 +30,6 @@ export const updateTransactionSchema = Joi.object({
   type: Joi.string().valid('income', 'expense').optional(),
   category: Joi.string().optional(),
   sum: Joi.number().min(0.01).max(1000000).optional(),
-  date: Joi.date().iso().optional(),
+  date: Joi.date().iso().max('now').optional(),
   comment: Joi.string().min(2).max(192).optional(),
 }).min(1);
