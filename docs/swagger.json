@@ -366,7 +366,7 @@
         }
       }
     },
-    "/auth/user": {
+    "/user/current": {
       "get": {
         "tags": [
           "User"
@@ -381,43 +381,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Successfully found user!",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
-                  "properties": {
-                    "status": {
-                      "type": "integer",
-                      "example": 200
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Current user fetched successfully!"
-                    },
-                    "data": {
-                      "type": "object",
-                      "required": [
-                        "user"
-                      ],
-                      "properties": {
-                        "user": {
-                          "type": "array",
-                          "items": {
-                            "$ref": "#/components/schemas/userResponse"
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
+            "$ref": "#/components/responses/user-current-200"
           },
           "401": {
             "$ref": "#/components/responses/401"
@@ -1309,6 +1273,45 @@
                             }
                           }
                         }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "user-current-200": {
+        "description": "Successfully found user!",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 200
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Current user fetched successfully!"
+                },
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "user"
+                  ],
+                  "properties": {
+                    "user": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/userResponse"
                       }
                     }
                   }
