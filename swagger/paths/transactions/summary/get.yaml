@@ -1,0 +1,68 @@
+tags:
+  - Transactions
+summary: Get transaction summary
+description: Returns summary of income and expenses (for month and year)
+operationId: getTransactionSummary
+security:
+  - bearerAuth: []
+parameters:
+  - in: query
+    name: period
+    required: false
+    description: Period in YYYY-MM format (e.g. "2025-05"). Defaults to current month if not provided.
+    schema:
+      type: string
+      example: '2024-05'
+responses:
+  '200':
+    description: Summary successfully retrieved
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Summary retrieved successfully
+            data:
+              type: object
+              example:
+                income:
+                  Salary: 5000
+                  Freelance: 1000
+                expense:
+                  Food: 300
+                  Rent: 1000
+  '401':
+    description: Unauthorized — missing or invalid token
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 401
+            message:
+              type: string
+              example: Unauthorized
+  '500':
+    description: Internal server error
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 500
+            message:
+              type: string
+              example: Something went wrong
