@@ -365,6 +365,223 @@
           }
         }
       }
+    },
+    "/transactions/{transactionId}": {
+      "patch": {
+        "tags": [
+          "Transactions"
+        ],
+        "summary": "Update a transaction by ID",
+        "operationId": "patchTransaction",
+        "description": "Logged-in user can update their own transaction.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "transactionId",
+            "required": true,
+            "description": "The ID of the transaction to update",
+            "schema": {
+              "type": "string",
+              "example": "66512d5b9828a8f5f30e8ac1"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "income",
+                      "expense"
+                    ]
+                  },
+                  "category": {
+                    "type": "string",
+                    "example": "Food"
+                  },
+                  "amount": {
+                    "type": "number",
+                    "example": 200
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date",
+                    "example": "2025-05-10"
+                  },
+                  "comment": {
+                    "type": "string",
+                    "example": "Dinner with friends"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction successfully updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Transaction updated successfully"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Transaction"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400-invalidIdOrBodyData"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404-routeNotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/transactions": {
+      "get": {
+        "tags": [
+          "Transactions"
+        ],
+        "summary": "Get all user transactions",
+        "operationId": "getTransactions",
+        "description": "Get list of transactions with this endpoint",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer",
+              "example": 1
+            },
+            "description": "Page number"
+          },
+          {
+            "in": "query",
+            "name": "perPage",
+            "schema": {
+              "type": "integer",
+              "example": 10
+            },
+            "description": "Number of items per page"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully found all transactions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found all transactions!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "transactions",
+                        "page",
+                        "perPage",
+                        "totalItems",
+                        "totalPages",
+                        "hasNextPage",
+                        "hasPreviousPage"
+                      ],
+                      "properties": {
+                        "transactions": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/Transaction"
+                          }
+                        },
+                        "page": {
+                          "type": "number",
+                          "example": 2
+                        },
+                        "perPage": {
+                          "type": "number",
+                          "example": 4
+                        },
+                        "totalItems": {
+                          "type": "number",
+                          "example": 6
+                        },
+                        "totalPages": {
+                          "type": "number",
+                          "example": 5
+                        },
+                        "hasNextPage": {
+                          "type": "boolean",
+                          "example": false
+                        },
+                        "hasPreviousPage": {
+                          "type": "boolean",
+                          "example": true
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -464,9 +681,99 @@
             "example": "UseSafePasSwoRds_likEThiS12$-"
           }
         }
+      },
+      "Transaction": {
+        "type": "object",
+        "required": [
+          "type",
+          "category",
+          "sum",
+          "date"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "664fd01ed8e7b3ce9ac1729f"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "income",
+              "expense"
+            ],
+            "example": "income"
+          },
+          "category": {
+            "type": "string",
+            "example": "Food"
+          },
+          "sum": {
+            "type": "number",
+            "minimum": 0.01,
+            "maximum": 1000000,
+            "example": 1500
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "example": "2025-05-01"
+          },
+          "comment": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 192,
+            "example": "Grocery shopping"
+          }
+        }
       }
     },
     "responses": {
+      "401": {
+        "description": "Unauthorized request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 401
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Unauthorized"
+                },
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "message"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "enum": [
+                        "Session not found",
+                        "User not found",
+                        "Auth header should be of type Bearer",
+                        "Please provide Authorization header",
+                        "Access token expired",
+                        "Refresh token expired",
+                        "Token is expired or invalid."
+                      ],
+                      "example": "Access token expired"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       "500": {
         "description": "Internal Server Error",
         "content": {
@@ -1202,6 +1509,104 @@
                           }
                         }
                       }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "400-invalidIdOrBodyData": {
+        "description": "Invalid contactId or wrong body data",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 400
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Bad request"
+                },
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "message"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "\"contactType\" must be one of [work, home, personal]"
+                    }
+                  }
+                }
+              }
+            },
+            "examples": {
+              "invalidContactId": {
+                "description": "The URL path parameter **contactId** is invalid",
+                "summary": "Invalid contactId",
+                "value": {
+                  "status": 400,
+                  "message": "Bad request",
+                  "data": {
+                    "message": "ContactId: ttrpaPPOperpog14po42p is not valid"
+                  }
+                }
+              },
+              "wrongBodyData": {
+                "summary": "Wrong request body data",
+                "description": "The body data of the request is wrong, for example, the request body doesn't consist the required parameters or they have invalid values.",
+                "value": {
+                  "status": 400,
+                  "message": "Bad request",
+                  "data": {
+                    "message": "\"contactType\" must be one of [work, home, personal]"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "404-routeNotFound": {
+        "description": "Route not found!",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 404
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Route not found!"
+                },
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "message"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Route not found!"
                     }
                   }
                 }
