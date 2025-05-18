@@ -11,9 +11,18 @@ export const AVAILABLE_ROUTES = {
     '/reset-pwd',
     '/uploads',
     '/api-docs',
+    '/user/current',
+    '/transactions',
+    '/transactions/summary',
+    '/transactions/:transactionId',
   ],
   availableQueries: {
-    get: ['/', '/uploads'],
+    get: [
+      '/',
+      '/uploads',
+      '/user/current',
+      '/transactions/summary?period=yyyy-mm',
+    ],
     post: [
       '/auth/register',
       '/auth/login',
@@ -21,14 +30,15 @@ export const AVAILABLE_ROUTES = {
       '/auth/refresh',
       '/send-reset-email',
       '/reset-pwd',
+      '/transactions/:transactionId',
     ],
-    delete: [],
+    delete: ['/transactions/:transactionId'],
     put: [],
-    patch: [],
+    patch: ['/transactions/:transactionId'],
   },
 };
 
-// лісіти на довжину імені користувача
+// ліміти на довжину імені користувача
 export const NAME_MIN_LENGTH = 2;
 export const NAME_MAX_LENGTH = 32;
 

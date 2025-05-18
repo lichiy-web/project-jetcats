@@ -64,10 +64,17 @@ export const createTransactionController = async (req, res) => {
  */
 export const deleteTransactionController = async (req, res) => {
   const { transactionId } = req.params;
-  const userId = req.user._id;
-  await deleteTransaction(transactionId, userId);
+  const { user } = req;
+  const deletedTransactionData = await deleteTransaction({
+    transactionId,
+    user,
+  });
 
-  res.status(204).send();
+  res.status(200).json({
+    status: 200,
+    message: RES_MSG[200].deleteTransaction,
+    data: deletedTransactionData,
+  });
 };
 
 /**

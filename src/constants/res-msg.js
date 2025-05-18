@@ -9,7 +9,8 @@ export const RES_MSG = {
     updateTransaction: 'Transaction updated successfully!',
     getCurrentUser: 'Current user fetched successfully!',
     getSummary: 'Successfully fetched summary!',
-    getCategories: 'Syccessfully fetched categories!',
+    getCategories: 'Successfully fetched categories!',
+    deleteTransaction: 'Successfully deleted a transaction!',
   },
   201: {
     default: 'Successfully created!',

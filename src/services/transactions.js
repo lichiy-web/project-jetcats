@@ -43,8 +43,19 @@ export const createTransaction = async ({ user, sum, type, ...params }) => {
   };
 };
 
-export const deleteTransaction = async ({ userId, transactionId }) => {
-  await TransactionCollection.findOneAndDelete({ _id: transactionId, userId });
+export const deleteTransaction = async ({ user, transactionId }) => {
+  const deletedTransaction = await TransactionCollection.findOneAndDelete({
+    _id: transactionId,
+    userId: user._id,
+  });
+
+  if (deletedTransaction) {
+    const { type, sum } = deletedTransaction;
+    const diff = balanceDiff(type, sum);
+    user.balance -= diff;
+    await user.save();
+  }
+  return { transaction: null, balance: user.balance };
 };
 
 export const updateTransaction = async ({
