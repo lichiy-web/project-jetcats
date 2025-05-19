@@ -2,12 +2,12 @@
   "openapi": "3.1.0",
   "info": {
     "version": "1.0.0",
-    "title": "Phonebook App",
+    "title": "JetCats API",
     "license": {
       "name": "Apache 2.0",
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "description": "Phonebook app allowes to store user's contacts in the database, edit them, and access to them from anywhere on Earth having internet connection."
+    "description": "Spendy App allows to manage user's income and expense."
   },
   "servers": [
     {
@@ -374,42 +374,38 @@
         "summary": "Get user",
         "operationId": "getUser",
         "description": "Get list of users with this endpoint",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/user-current-200"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
     "/transactions": {
       "post": {
         "tags": [
           "Transactions"
         ],
         "summary": "Create transactions",
-        "operationId": "createtransactions",
+        "operationId": "createTransaction",
         "description": "Create a transactions with payload",
-    "/transactions/{transactionId}": {
-      "patch": {
-        "tags": [
-          "Transactions"
-        ],
-        "summary": "Update a transaction by ID",
-        "operationId": "patchTransaction",
-        "description": "Logged-in user can update their own transaction.",
         "security": [
           {
             "bearerAuth": []
           }
         ],
         "requestBody": {
-        "parameters": [
-          {
-            "in": "path",
-            "name": "transactionId",
-            "required": true,
-            "description": "The ID of the transaction to update",
-            "schema": {
-              "type": "string",
-              "example": "66512d5b9828a8f5f30e8ac1"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": false,
           "content": {
             "application/json": {
               "schema": {
@@ -422,9 +418,7 @@
                 ],
                 "properties": {
                   "type": {
-                    "description": "transactions's type",
-                "properties": {
-                  "type": {
+                    "description": "Transactions's type",
                     "type": "string",
                     "enum": [
                       "income",
@@ -432,45 +426,30 @@
                     ]
                   },
                   "category": {
-                    "description": "transactions's category",
+                    "description": "Transactions's category",
                     "type": "string",
                     "example": "Car"
                   },
                   "sum": {
-                    "description": "transactions's sum",
+                    "description": "Transactions's sum",
                     "type": "number",
                     "example": 300
                   },
                   "date": {
-                    "description": "transactions's date",
+                    "description": "Transactions's date",
                     "type": "string",
                     "format": "date",
                     "example": "2025-05-18"
                   },
                   "comment": {
-                    "description": "transaction is related to car",
+                    "description": "Transaction is related to car",
                     "type": "string",
-                    "example": "transaction is related to car"
+                    "example": "Transaction is related to car"
                   },
                   "userId": {
-                    "description": "transactions's userId",
+                    "description": "Transactions's userId",
                     "type": "string",
                     "example": "65e4decdd286b30065d54af9"
-                    "type": "string",
-                    "example": "Food"
-                  },
-                  "amount": {
-                    "type": "number",
-                    "example": 200
-                  },
-                  "date": {
-                    "type": "string",
-                    "format": "date",
-                    "example": "2025-05-10"
-                  },
-                  "comment": {
-                    "type": "string",
-                    "example": "Dinner with friends"
                   }
                 }
               }
@@ -480,50 +459,15 @@
         "responses": {
           "201": {
             "$ref": "#/components/responses/transactionPost-201"
-          "200": {
-            "description": "Transaction successfully updated",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
-                  "properties": {
-                    "status": {
-                      "type": "integer",
-                      "example": 200
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Transaction updated successfully"
-                    },
-                    "data": {
-                      "$ref": "#/components/schemas/Transaction"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/400-invalidIdOrBodyData"
           },
           "401": {
             "$ref": "#/components/responses/401"
-          },
-          "404": {
-            "$ref": "#/components/responses/404-routeNotFound"
           },
           "500": {
             "$ref": "#/components/responses/500"
           }
         }
-      }
-    },
-    "/transactions": {
+      },
       "get": {
         "tags": [
           "Transactions"
@@ -536,9 +480,6 @@
             "bearerAuth": []
           }
         ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/user-current-200"
         "parameters": [
           {
             "in": "query",
@@ -637,13 +578,420 @@
           }
         }
       }
+    },
+    "/transactions/{transactionId}": {
+      "patch": {
+        "tags": [
+          "Transactions"
+        ],
+        "summary": "Update a transaction by ID",
+        "operationId": "patchTransaction",
+        "description": "Logged-in user can update their own transaction.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "transactionId",
+            "required": true,
+            "description": "The ID of the transaction to update",
+            "schema": {
+              "type": "string",
+              "example": "66512d5b9828a8f5f30e8ac1"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "income",
+                      "expense"
+                    ]
+                  },
+                  "category": {
+                    "type": "string",
+                    "example": "Food"
+                  },
+                  "amount": {
+                    "type": "number",
+                    "example": 200
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date",
+                    "example": "2025-05-10"
+                  },
+                  "comment": {
+                    "type": "string",
+                    "example": "Dinner with friends"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction successfully updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Transaction updated successfully"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/TransactionData"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400-invalidIdOrBodyData"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404-routeNotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Transactions"
+        ],
+        "summary": "Delete a transaction by ID",
+        "description": "Deletes a transaction belonging to the authenticated user, specified by its ID.",
+        "operationId": "deleteTransaction",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "transactionId",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "The ID of the transaction to delete (MongoDB ObjectId)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Transaction deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Transaction deleted successfully"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/TransactionData"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400-invalidId"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404-transactionNotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/transactions/summary": {
+      "get": {
+        "tags": [
+          "Transactions"
+        ],
+        "summary": "Get transaction summary",
+        "description": "Returns summary of income and expenses (for month and year)",
+        "operationId": "getTransactionSummary",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "period",
+            "required": false,
+            "description": "Period in YYYY-MM format (e.g. \"2025-05\"). Defaults to current month if not provided.",
+            "schema": {
+              "type": "string",
+              "example": "2025-06"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Summary successfully retrieved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully fetched summary"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "income",
+                        "expense",
+                        "period"
+                      ],
+                      "properties": {
+                        "income": {
+                          "type": "object",
+                          "required": [
+                            "category",
+                            "total"
+                          ],
+                          "properties": {
+                            "category": {
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "number"
+                              },
+                              "example": {
+                                "Incomes": 5000
+                              }
+                            },
+                            "total": {
+                              "type": "number",
+                              "example": 5000
+                            }
+                          }
+                        },
+                        "expense": {
+                          "type": "object",
+                          "required": [
+                            "category",
+                            "total"
+                          ],
+                          "properties": {
+                            "category": {
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "number"
+                              },
+                              "example": {
+                                "Main expenses": 1750,
+                                "Products": 830,
+                                "Car": 560,
+                                "Self care": 100,
+                                "Child care": 1300,
+                                "Household products": 100,
+                                "Education": 0,
+                                "Other expenses": 200,
+                                "Leisure": 0,
+                                "Entertainment": 120
+                              }
+                            },
+                            "total": {
+                              "type": "number",
+                              "example": 4960
+                            }
+                          }
+                        },
+                        "period": {
+                          "type": "object",
+                          "required": [
+                            "year",
+                            "month"
+                          ],
+                          "properties": {
+                            "year": {
+                              "type": "integer",
+                              "example": 2025
+                            },
+                            "month": {
+                              "type": "integer",
+                              "example": 5
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized — missing or invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 401
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 500
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Something went wrong"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/categories/get": {
+      "get": {
+        "tags": [
+          "Categories"
+        ],
+        "summary": "Get all categories of transactions",
+        "operationId": "getCategories",
+        "description": "Get list of categories with this endpoint",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully found all categories",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully fetched categories!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "categories",
+                        "totalItems"
+                      ],
+                      "properties": {
+                        "categories": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/categories"
+                          }
+                        },
+                        "totalItems": {
+                          "type": "number",
+                          "example": 10
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
     }
   },
   "components": {
     "securitySchemes": {
       "bearerAuth": {
         "type": "http",
-        "scheme": "bearerss"
+        "scheme": "bearer"
       }
     },
     "schemas": {
@@ -737,19 +1085,12 @@
           }
         }
       },
-      "transactions": {
       "Transaction": {
         "type": "object",
         "required": [
           "type",
           "category",
           "sum",
-          "date",
-          "userId"
-        ],
-        "properties": {
-          "type": {
-            "description": "transactions's type",
           "date"
         ],
         "properties": {
@@ -762,33 +1103,6 @@
             "enum": [
               "income",
               "expense"
-            ]
-          },
-          "category": {
-            "description": "transactions's category",
-            "type": "string",
-            "example": "Car"
-          },
-          "sum": {
-            "description": "transactions's sum",
-            "type": "number",
-            "example": 300
-          },
-          "date": {
-            "description": "transactions's date",
-            "type": "string",
-            "format": "date",
-            "example": "2025-05-18"
-          },
-          "comment": {
-            "description": "transaction is related to car",
-            "type": "string",
-            "example": "transaction is related to car"
-          },
-          "userId": {
-            "description": "transactions's userId",
-            "type": "string",
-            "example": "65e4decdd286b30065d54af9"
             ],
             "example": "income"
           },
@@ -812,6 +1126,106 @@
             "minLength": 2,
             "maxLength": 192,
             "example": "Grocery shopping"
+          }
+        }
+      },
+      "TransactionData": {
+        "type": "object",
+        "required": [
+          "transaction",
+          "balance"
+        ],
+        "properties": {
+          "transaction": {
+            "type": "object",
+            "required": [
+              "type",
+              "category",
+              "sum",
+              "date"
+            ],
+            "properties": {
+              "type": {
+                "description": "Transactions's type",
+                "type": "string",
+                "enum": [
+                  "income",
+                  "expense"
+                ]
+              },
+              "category": {
+                "description": "Transactions's category",
+                "type": "string",
+                "example": "Car"
+              },
+              "sum": {
+                "description": "Transactions's sum",
+                "type": "number",
+                "example": 300
+              },
+              "date": {
+                "description": "Transactions's date",
+                "type": "string",
+                "format": "date",
+                "example": "2025-05-18"
+              },
+              "comment": {
+                "description": "Transaction is related to car",
+                "type": "string",
+                "example": "Transaction is related to car"
+              },
+              "userId": {
+                "description": "Transactions's userId",
+                "type": "string",
+                "example": "65e4decdd286b30065d54af9"
+              }
+            }
+          },
+          "balance": {
+            "type": "number",
+            "example": 5000
+          }
+        }
+      },
+      "categories": {
+        "type": "object",
+        "required": [
+          "_id",
+          "type",
+          "name"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Unique identifier of the category",
+            "example": "6825eae52bcfe457b4ce5b14"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "income",
+              "expense"
+            ],
+            "description": "Type of the category",
+            "example": "expense"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the category",
+            "example": "Main expenses",
+            "enum": [
+              "Incomes",
+              "Main expenses",
+              "Products",
+              "Car",
+              "Self care",
+              "Child care",
+              "Household products",
+              "Education",
+              "Other expenses",
+              "Leisure",
+              "Entertainment"
+            ]
           }
         }
       }
@@ -1608,10 +2022,6 @@
       },
       "user-current-200": {
         "description": "Successfully found user!",
-      "transactionPost-201": {
-        "description": "Successfully creates a transaction.",
-      "400-invalidIdOrBodyData": {
-        "description": "Invalid contactId or wrong body data",
         "content": {
           "application/json": {
             "schema": {
@@ -1629,6 +2039,40 @@
                 "message": {
                   "type": "string",
                   "example": "Current user fetched successfully!"
+                },
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "user"
+                  ],
+                  "properties": {
+                    "user": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/userResponse"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "transactionPost-201": {
+        "description": "Successfully creates a transaction.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
                   "example": 201
                 },
                 "message": {
@@ -1636,7 +2080,84 @@
                   "example": "Successfully created!"
                 },
                 "data": {
-                  "$ref": "#/components/schemas/transactions"
+                  "$ref": "#/components/schemas/TransactionData"
+                }
+              }
+            }
+          }
+        }
+      },
+      "400-invalidId": {
+        "description": "Invalid transaction Id or wrong body data",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 400
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Bad request"
+                },
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "message"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "The following id: ttrpaPPOperpog14po42p is not valid"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "404-transactionNotFound": {
+        "description": "Transaction not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Not Found"
+                },
+                "details": {
+                  "type": "string",
+                  "example": "Transaction not found"
+                }
+              }
+            }
+          }
+        }
+      },
+      "400-invalidIdOrBodyData": {
+        "description": "Invalid contactId or wrong body data",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
                   "example": 400
                 },
                 "message": {
@@ -1707,20 +2228,13 @@
                 "data": {
                   "type": "object",
                   "required": [
-                    "user"
-                  ],
-                  "properties": {
-                    "user": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/userResponse"
-                      }
                     "message"
                   ],
                   "properties": {
                     "message": {
                       "type": "string",
-                      "example": "Route not found!"
+                      "example": "Route not found!",
+                      "description": "Transaction not found"
                     }
                   }
                 }
