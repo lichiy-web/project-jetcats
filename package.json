@@ -51,6 +51,7 @@
     "mongoose": "^8.12.2",
     "multer": "^1.4.5-lts.2",
     "nodemailer": "^6.10.1",
+    "ping": "^0.4.4",
     "pino-http": "^10.4.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1"
