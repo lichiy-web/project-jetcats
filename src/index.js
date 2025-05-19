@@ -6,6 +6,7 @@ import { dontSleep } from './utils/ping.js';
 
 const bootstrap = async () => {
   dontSleep(10 * ONE_MINUTE);
+  dontSleep(1000);
   await initMongoConnection();
   await createDirIfNotExists(TEMP_UPLOAD_DIR);
   await createDirIfNotExists(UPLOAD_DIR);

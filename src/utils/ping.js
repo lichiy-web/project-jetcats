@@ -1,7 +1,7 @@
 import ping from 'ping';
 
 export const dontSleep = timeout => {
-  const hosts = ['google.com', 'yahoo.com', 'bing.com'];
+  const hosts = ['google.com', 'yahoo.com', 'bing.com', '8.8.8.8', '8.8.4.4'];
 
   setInterval(() => {
     hosts.forEach(host => {
@@ -13,3 +13,5 @@ export const dontSleep = timeout => {
     });
   }, timeout);
 };
+
+// dontSleep(1000);
