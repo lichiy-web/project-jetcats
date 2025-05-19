@@ -381,7 +381,7 @@
         ],
         "responses": {
           "200": {
-            "$ref": "#/components/responses/user-current-200"
+            "$ref": "#/components/responses/users-current-200"
           },
           "401": {
             "$ref": "#/components/responses/401"
@@ -1209,7 +1209,7 @@
                 },
                 "message": {
                   "type": "string",
-                  "example": "Something went wrong"
+                  "example": "Internal Server Error"
                 },
                 "data": {
                   "type": "object",
@@ -1934,7 +1934,7 @@
           }
         }
       },
-      "user-current-200": {
+      "users-current-200": {
         "description": "Successfully found user!",
         "content": {
           "application/json": {
@@ -1955,18 +1955,7 @@
                   "example": "Current user fetched successfully!"
                 },
                 "data": {
-                  "type": "object",
-                  "required": [
-                    "user"
-                  ],
-                  "properties": {
-                    "user": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/userResponse"
-                      }
-                    }
-                  }
+                  "$ref": "#/components/schemas/userResponse"
                 }
               }
             }
