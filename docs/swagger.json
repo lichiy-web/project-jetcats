@@ -934,48 +934,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Successfully found all categories",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "example": 200
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Successfully fetched categories!"
-                    },
-                    "data": {
-                      "type": "object",
-                      "required": [
-                        "categories",
-                        "totalItems"
-                      ],
-                      "properties": {
-                        "categories": {
-                          "type": "array",
-                          "items": {
-                            "$ref": "#/components/schemas/categories"
-                          }
-                        },
-                        "totalItems": {
-                          "type": "number",
-                          "example": 10
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
+            "$ref": "#/components/responses/200-categories"
           },
           "401": {
             "$ref": "#/components/responses/401"
@@ -1184,48 +1143,6 @@
           "balance": {
             "type": "number",
             "example": 5000
-          }
-        }
-      },
-      "categories": {
-        "type": "object",
-        "required": [
-          "_id",
-          "type",
-          "name"
-        ],
-        "properties": {
-          "_id": {
-            "type": "string",
-            "description": "Unique identifier of the category",
-            "example": "6825eae52bcfe457b4ce5b14"
-          },
-          "type": {
-            "type": "string",
-            "enum": [
-              "income",
-              "expense"
-            ],
-            "description": "Type of the category",
-            "example": "expense"
-          },
-          "name": {
-            "type": "string",
-            "description": "Name of the category",
-            "example": "Main expenses",
-            "enum": [
-              "Incomes",
-              "Main expenses",
-              "Products",
-              "Car",
-              "Self care",
-              "Child care",
-              "Household products",
-              "Education",
-              "Other expenses",
-              "Leisure",
-              "Entertainment"
-            ]
           }
         }
       }
@@ -2239,6 +2156,131 @@
                   }
                 }
               }
+            }
+          }
+        }
+      },
+      "200-categories": {
+        "description": "Successfully fetched all categories",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 200
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Successfully fetched categories!"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "_id",
+                      "type",
+                      "name"
+                    ],
+                    "properties": {
+                      "_id": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "income",
+                          "expense"
+                        ]
+                      },
+                      "name": {
+                        "type": "string",
+                        "enum": [
+                          "Incomes",
+                          "Main expenses",
+                          "Products",
+                          "Car",
+                          "Self care",
+                          "Child care",
+                          "Household products",
+                          "Education",
+                          "Other expenses",
+                          "Leisure",
+                          "Entertainment"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "example": {
+              "status": 200,
+              "message": "Successfully fetched categories!",
+              "data": [
+                {
+                  "_id": "6825eae52bcfe457b4ce5b14",
+                  "type": "income",
+                  "name": "Incomes"
+                },
+                {
+                  "_id": "6825eae52bcfe457b4ce5b15",
+                  "type": "expense",
+                  "name": "Main expenses"
+                },
+                {
+                  "_id": "6825eae52bcfe457b4ce5b16",
+                  "type": "expense",
+                  "name": "Products"
+                },
+                {
+                  "_id": "6825eae52bcfe457b4ce5b17",
+                  "type": "expense",
+                  "name": "Car"
+                },
+                {
+                  "_id": "6825eae52bcfe457b4ce5b18",
+                  "type": "expense",
+                  "name": "Self care"
+                },
+                {
+                  "_id": "6825eae52bcfe457b4ce5b19",
+                  "type": "expense",
+                  "name": "Child care"
+                },
+                {
+                  "_id": "6825eae52bcfe457b4ce5b1a",
+                  "type": "expense",
+                  "name": "Household products"
+                },
+                {
+                  "_id": "6825eae52bcfe457b4ce5b1b",
+                  "type": "expense",
+                  "name": "Education"
+                },
+                {
+                  "_id": "6825eae52bcfe457b4ce5b1c",
+                  "type": "expense",
+                  "name": "Other expenses"
+                },
+                {
+                  "_id": "6825eae52bcfe457b4ce5b1d",
+                  "type": "expense",
+                  "name": "Leisure"
+                },
+                {
+                  "_id": "6825eae52bcfe457b4ce5b1e",
+                  "type": "expense",
+                  "name": "Entertainment"
+                }
+              ]
             }
           }
         }
