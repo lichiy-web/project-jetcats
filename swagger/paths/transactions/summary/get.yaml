@@ -9,7 +9,9 @@ parameters:
   - in: query
     name: period
     required: false
-    description: Period in YYYY-MM format (e.g. "2025-05"). Defaults to current month if not provided.
+    description:
+      Period in YYYY-MM format (e.g. "2025-05"). Defaults to current month if
+      not provided.
     schema:
       type: string
       example: '2025-06'
@@ -64,19 +66,19 @@ responses:
                       additionalProperties:
                         type: number
                       example:
-                        Main expenses: 0
-                        Products: 0
-                        Car: 0
-                        Self care: 0
+                        Main expenses: 1750
+                        Products: 830
+                        Car: 560
+                        Self care: 100
                         Child care: 1300
                         Household products: 100
                         Education: 0
                         Other expenses: 200
                         Leisure: 0
-                        Entertainment: 0
+                        Entertainment: 120
                     total:
                       type: number
-                      example: 1600
+                      example: 4960
                 period:
                   type: object
                   required:

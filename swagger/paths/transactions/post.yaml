@@ -9,38 +9,7 @@ requestBody:
   content:
     application/json:
       schema:
-        type: object
-        required:
-          - type
-          - category
-          - sum
-          - date
-        properties:
-          type:
-            description: "Transactions's type"
-            type: string
-            enum: ['income', 'expense']
-          category:
-            description: "Transactions's category"
-            type: string
-            example: 'Car'
-          sum:
-            description: "Transactions's sum"
-            type: number
-            example: 300
-          date:
-            description: "Transactions's date"
-            type: string
-            format: date
-            example: '2025-05-18'
-          comment:
-            description: 'Transaction is related to car'
-            type: string
-            example: 'Transaction is related to car'
-          userId:
-            description: "Transactions's userId"
-            type: string
-            example: 65e4decdd286b30065d54af9
+        $ref: ../../components/schemas/TransactionData.yaml
 responses:
   '201':
     $ref: ../../components/responses/transactionPost-201.yaml
