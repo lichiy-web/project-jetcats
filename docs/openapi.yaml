@@ -42,7 +42,7 @@ paths:
   /auth/confirm-oauth:
     post:
       $ref: ../swagger/paths/auth/confirm-oauth/post.yaml
-  /user/current:
+  /users/current:
     get:
       $ref: ../swagger/paths/users/current/get.yaml
   /transactions:
@@ -58,7 +58,7 @@ paths:
   /transactions/summary:
     get:
       $ref: ../swagger/paths/transactions/summary/get.yaml
-  /categories/get:
+  /categories:
     get:
       $ref: ../swagger/paths/categories/get.yaml
 components:

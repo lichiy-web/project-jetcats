@@ -366,7 +366,7 @@
         }
       }
     },
-    "/user/current": {
+    "/users/current": {
       "get": {
         "tags": [
           "User"
@@ -569,372 +569,6 @@
                 }
               }
             }
-          },
-          "401": {
-            "$ref": "#/components/responses/401"
-          },
-          "500": {
-            "$ref": "#/components/responses/500"
-          }
-        }
-      }
-    },
-    "/transactions/{transactionId}": {
-      "patch": {
-        "tags": [
-          "Transactions"
-        ],
-        "summary": "Update a transaction by ID",
-        "operationId": "patchTransaction",
-        "description": "Logged-in user can update their own transaction.",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "transactionId",
-            "required": true,
-            "description": "The ID of the transaction to update",
-            "schema": {
-              "type": "string",
-              "example": "66512d5b9828a8f5f30e8ac1"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": false,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "type": "string",
-                    "enum": [
-                      "income",
-                      "expense"
-                    ]
-                  },
-                  "category": {
-                    "type": "string",
-                    "example": "Food"
-                  },
-                  "amount": {
-                    "type": "number",
-                    "example": 200
-                  },
-                  "date": {
-                    "type": "string",
-                    "format": "date",
-                    "example": "2025-05-10"
-                  },
-                  "comment": {
-                    "type": "string",
-                    "example": "Dinner with friends"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Transaction successfully updated",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
-                  "properties": {
-                    "status": {
-                      "type": "integer",
-                      "example": 200
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Transaction updated successfully"
-                    },
-                    "data": {
-                      "$ref": "#/components/schemas/TransactionData"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/400-invalidIdOrBodyData"
-          "201": {
-            "$ref": "#/components/responses/transactionPost-201"
-          },
-          "401": {
-            "$ref": "#/components/responses/401"
-          },
-          "500": {
-            "$ref": "#/components/responses/500"
-          }
-        }
-      },
-      "delete": {
-      "get": {
-        "tags": [
-          "Transactions"
-        ],
-        "summary": "Delete a transaction by ID",
-        "description": "Deletes a transaction belonging to the authenticated user, specified by its ID.",
-        "operationId": "deleteTransaction",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "transactionId",
-            "schema": {
-              "type": "string"
-            },
-            "required": true,
-            "description": "The ID of the transaction to delete (MongoDB ObjectId)"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Transaction deleted successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "integer",
-                      "example": 200
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Transaction deleted successfully"
-                    },
-                    "data": {
-                      "$ref": "#/components/schemas/TransactionData"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/400-invalidId"
-          },
-          "401": {
-            "$ref": "#/components/responses/401"
-          },
-          "404": {
-            "$ref": "#/components/responses/404-transactionNotFound"
-          },
-          "500": {
-            "$ref": "#/components/responses/500"
-          }
-        }
-      }
-    },
-    "/transactions/summary": {
-      "get": {
-        "tags": [
-          "Transactions"
-        ],
-        "summary": "Get transaction summary",
-        "description": "Returns summary of income and expenses (for month and year)",
-        "operationId": "getTransactionSummary",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "in": "query",
-            "name": "period",
-            "required": false,
-            "description": "Period in YYYY-MM format (e.g. \"2025-05\"). Defaults to current month if not provided.",
-            "schema": {
-              "type": "string",
-              "example": "2025-06"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Summary successfully retrieved",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
-                  "properties": {
-                    "status": {
-                      "type": "integer",
-                      "example": 200
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Successfully fetched summary"
-                    },
-                    "data": {
-                      "type": "object",
-                      "required": [
-                        "income",
-                        "expense",
-                        "period"
-                      ],
-                      "properties": {
-                        "income": {
-                          "type": "object",
-                          "required": [
-                            "category",
-                            "total"
-                          ],
-                          "properties": {
-                            "category": {
-                              "type": "object",
-                              "additionalProperties": {
-                                "type": "number"
-                              },
-                              "example": {
-                                "Incomes": 5000
-                              }
-                            },
-                            "total": {
-                              "type": "number",
-                              "example": 5000
-                            }
-                          }
-                        },
-                        "expense": {
-                          "type": "object",
-                          "required": [
-                            "category",
-                            "total"
-                          ],
-                          "properties": {
-                            "category": {
-                              "type": "object",
-                              "additionalProperties": {
-                                "type": "number"
-                              },
-                              "example": {
-                                "Main expenses": 1750,
-                                "Products": 830,
-                                "Car": 560,
-                                "Self care": 100,
-                                "Child care": 1300,
-                                "Household products": 100,
-                                "Education": 0,
-                                "Other expenses": 200,
-                                "Leisure": 0,
-                                "Entertainment": 120
-                              }
-                            },
-                            "total": {
-                              "type": "number",
-                              "example": 4960
-                            }
-                          }
-                        },
-                        "period": {
-                          "type": "object",
-                          "required": [
-                            "year",
-                            "month"
-                          ],
-                          "properties": {
-                            "year": {
-                              "type": "integer",
-                              "example": 2025
-                            },
-                            "month": {
-                              "type": "integer",
-                              "example": 5
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized — missing or invalid token",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "integer",
-                      "example": 401
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Unauthorized"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "integer",
-                      "example": 500
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Something went wrong"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/categories/get": {
-      "get": {
-        "tags": [
-          "Categories"
-        ],
-        "summary": "Get all categories of transactions",
-        "operationId": "getCategories",
-        "description": "Get list of categories with this endpoint",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/200-categories"
           },
           "401": {
             "$ref": "#/components/responses/401"
@@ -1281,6 +915,29 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/categories": {
+      "get": {
+        "tags": [
+          "Categories"
+        ],
+        "summary": "Get all categories of transactions",
+        "operationId": "getCategories",
+        "description": "Get list of categories with this endpoint",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/200-categories"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
           }
         }
       }
