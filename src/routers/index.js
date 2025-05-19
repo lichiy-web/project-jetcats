@@ -12,6 +12,6 @@ router.get('/', ctrlWrapper(rootController));
 router.use('/auth', authRouter);
 router.use('/transactions', transactionsRouter);
 router.use('/categories', categoriesRouter);
-router.use('/user', currentRouter);
+router.use('/users', currentRouter);
 
 export default router;
