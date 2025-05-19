@@ -29,7 +29,7 @@ responses:
               type: string
               example: Transaction deleted successfully
             data:
-              $ref: '../../../components/schemas/Transaction.yaml'
+              $ref: ../../../components/schemas/TransactionData.yaml
   '400':
     $ref: ../../../components/responses/400-invalidId.yaml
   '401':
