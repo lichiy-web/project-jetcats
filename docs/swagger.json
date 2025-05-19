@@ -366,6 +366,14 @@
         }
       }
     },
+    "/user/current": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get user",
+        "operationId": "getUser",
+        "description": "Get list of users with this endpoint",
     "/transactions": {
       "post": {
         "tags": [
@@ -528,6 +536,9 @@
             "bearerAuth": []
           }
         ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/user-current-200"
         "parameters": [
           {
             "in": "query",
@@ -1595,6 +1606,8 @@
           }
         }
       },
+      "user-current-200": {
+        "description": "Successfully found user!",
       "transactionPost-201": {
         "description": "Successfully creates a transaction.",
       "400-invalidIdOrBodyData": {
@@ -1611,6 +1624,11 @@
               "properties": {
                 "status": {
                   "type": "integer",
+                  "example": 200
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Current user fetched successfully!"
                   "example": 201
                 },
                 "message": {
@@ -1689,6 +1707,14 @@
                 "data": {
                   "type": "object",
                   "required": [
+                    "user"
+                  ],
+                  "properties": {
+                    "user": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/userResponse"
+                      }
                     "message"
                   ],
                   "properties": {

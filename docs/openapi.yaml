@@ -43,6 +43,9 @@ paths:
   /auth/confirm-oauth:
     post:
       $ref: ../swagger/paths/auth/confirm-oauth/post.yaml
+  /user/current:
+    get:
+      $ref: ../swagger/paths/user/current/get.yaml
   /transactions:
     post:
       $ref: ../swagger/paths/transactions/post.yaml
