@@ -366,6 +366,14 @@
         }
       }
     },
+    "/transactions": {
+      "post": {
+        "tags": [
+          "Transactions"
+        ],
+        "summary": "Create transactions",
+        "operationId": "createtransactions",
+        "description": "Create a transactions with payload",
     "/transactions/{transactionId}": {
       "patch": {
         "tags": [
@@ -379,6 +387,7 @@
             "bearerAuth": []
           }
         ],
+        "requestBody": {
         "parameters": [
           {
             "in": "path",
@@ -397,6 +406,15 @@
             "application/json": {
               "schema": {
                 "type": "object",
+                "required": [
+                  "type",
+                  "category",
+                  "sum",
+                  "date"
+                ],
+                "properties": {
+                  "type": {
+                    "description": "transactions's type",
                 "properties": {
                   "type": {
                     "type": "string",
@@ -406,6 +424,30 @@
                     ]
                   },
                   "category": {
+                    "description": "transactions's category",
+                    "type": "string",
+                    "example": "Car"
+                  },
+                  "sum": {
+                    "description": "transactions's sum",
+                    "type": "number",
+                    "example": 300
+                  },
+                  "date": {
+                    "description": "transactions's date",
+                    "type": "string",
+                    "format": "date",
+                    "example": "2025-05-18"
+                  },
+                  "comment": {
+                    "description": "transaction is related to car",
+                    "type": "string",
+                    "example": "transaction is related to car"
+                  },
+                  "userId": {
+                    "description": "transactions's userId",
+                    "type": "string",
+                    "example": "65e4decdd286b30065d54af9"
                     "type": "string",
                     "example": "Food"
                   },
@@ -428,6 +470,8 @@
           }
         },
         "responses": {
+          "201": {
+            "$ref": "#/components/responses/transactionPost-201"
           "200": {
             "description": "Transaction successfully updated",
             "content": {
@@ -682,12 +726,19 @@
           }
         }
       },
+      "transactions": {
       "Transaction": {
         "type": "object",
         "required": [
           "type",
           "category",
           "sum",
+          "date",
+          "userId"
+        ],
+        "properties": {
+          "type": {
+            "description": "transactions's type",
           "date"
         ],
         "properties": {
@@ -700,6 +751,33 @@
             "enum": [
               "income",
               "expense"
+            ]
+          },
+          "category": {
+            "description": "transactions's category",
+            "type": "string",
+            "example": "Car"
+          },
+          "sum": {
+            "description": "transactions's sum",
+            "type": "number",
+            "example": 300
+          },
+          "date": {
+            "description": "transactions's date",
+            "type": "string",
+            "format": "date",
+            "example": "2025-05-18"
+          },
+          "comment": {
+            "description": "transaction is related to car",
+            "type": "string",
+            "example": "transaction is related to car"
+          },
+          "userId": {
+            "description": "transactions's userId",
+            "type": "string",
+            "example": "65e4decdd286b30065d54af9"
             ],
             "example": "income"
           },
@@ -1517,6 +1595,8 @@
           }
         }
       },
+      "transactionPost-201": {
+        "description": "Successfully creates a transaction.",
       "400-invalidIdOrBodyData": {
         "description": "Invalid contactId or wrong body data",
         "content": {
@@ -1531,6 +1611,14 @@
               "properties": {
                 "status": {
                   "type": "integer",
+                  "example": 201
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Successfully created!"
+                },
+                "data": {
+                  "$ref": "#/components/schemas/transactions"
                   "example": 400
                 },
                 "message": {
