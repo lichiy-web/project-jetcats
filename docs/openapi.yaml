@@ -46,6 +46,18 @@ paths:
   /user/current:
     get:
       $ref: ../swagger/paths/user/current/get.yaml
+  /transactions:
+    post:
+      $ref: ../swagger/paths/transactions/post.yaml
+  /transactions/{transactionId}:
+    patch: 
+      $ref: '../swagger/paths/transactions/{id}/patch.yaml'
+  /transactions:
+    get: 
+      $ref: '../swagger/paths/transactions/get.yaml'
+  /transactions/summary:
+    get:
+      $ref: ../swagger/paths/transactions/summary/get.yaml
 components:
   securitySchemes:
     bearerAuth:

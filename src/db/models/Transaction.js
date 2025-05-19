@@ -7,7 +7,8 @@ export const transactionSchema = new Schema(
       required: true,
     },
     category: {
-      type: String,
+      type: Schema.Types.ObjectId,
+      ref: 'category',
       required: true,
     },
     sum: {
@@ -18,13 +19,13 @@ export const transactionSchema = new Schema(
     },
     date: {
       type: Date,
+      max: Date.now,
       required: true,
     },
     comment: {
       type: String,
       minlength: 2,
       maxlength: 192,
-      // default: null,
     },
     userId: {
       type: Schema.Types.ObjectId,

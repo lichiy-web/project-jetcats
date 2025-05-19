@@ -11,7 +11,7 @@ export const AVAILABLE_ROUTES = {
     '/reset-pwd',
     '/uploads',
     '/api-docs',
-    '/user/current',
+    '/users/current',
     '/transactions',
     '/transactions/summary',
     '/transactions/:transactionId',
@@ -20,7 +20,7 @@ export const AVAILABLE_ROUTES = {
     get: [
       '/',
       '/uploads',
-      '/user/current',
+      '/users/current',
       '/transactions/summary?period=yyyy-mm',
     ],
     post: [
