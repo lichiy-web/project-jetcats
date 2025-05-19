@@ -1,7 +1,7 @@
 tags:
   - Transactions
 summary: Create transactions
-operationId: createtransactions
+operationId: createTransaction
 description: 'Create a transactions with payload'
 security:
   - bearerAuth: []
@@ -17,28 +17,28 @@ requestBody:
           - date
         properties:
           type:
-            description: "transactions's type"
+            description: "Transactions's type"
             type: string
             enum: ['income', 'expense']
           category:
-            description: "transactions's category"
+            description: "Transactions's category"
             type: string
             example: 'Car'
           sum:
-            description: "transactions's sum"
+            description: "Transactions's sum"
             type: number
             example: 300
           date:
-            description: "transactions's date"
+            description: "Transactions's date"
             type: string
             format: date
             example: '2025-05-18'
           comment:
-            description: 'transaction is related to car'
+            description: 'Transaction is related to car'
             type: string
-            example: 'transaction is related to car'
+            example: 'Transaction is related to car'
           userId:
-            description: "transactions's userId"
+            description: "Transactions's userId"
             type: string
             example: 65e4decdd286b30065d54af9
 responses:

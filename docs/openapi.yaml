@@ -6,9 +6,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  description:
-    Phonebook app allowes to store user's contacts in the database, edit them,
-    and access to them from anywhere on Earth having internet connection.
+  description: Spendy App allows to manage user's income and expense.
 tags:
   - name: Transactions
     description: Operations with transactions.
@@ -46,18 +44,17 @@ paths:
       $ref: ../swagger/paths/auth/confirm-oauth/post.yaml
   /user/current:
     get:
-      $ref: ../swagger/paths/user/current/get.yaml
+      $ref: ../swagger/paths/users/current/get.yaml
   /transactions:
     post:
       $ref: ../swagger/paths/transactions/post.yaml
+    get:
+      $ref: '../swagger/paths/transactions/get.yaml'
   /transactions/{transactionId}:
     patch:
       $ref: '../swagger/paths/transactions/{id}/patch.yaml'
     delete:
       $ref: '../swagger/paths/transactions/{id}/delete.yaml'
-  /transactions:
-    get:
-      $ref: '../swagger/paths/transactions/get.yaml'
   /transactions/summary:
     get:
       $ref: ../swagger/paths/transactions/summary/get.yaml
