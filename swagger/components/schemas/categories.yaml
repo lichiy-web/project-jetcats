@@ -1,0 +1,31 @@
+type: object
+required:
+  - _id
+  - type
+  - name
+properties:
+  _id:
+    type: string
+    description: Unique identifier of the category
+    example: 6825eae52bcfe457b4ce5b14
+  type:
+    type: string
+    enum: [income, expense]
+    description: Type of the category
+    example: expense
+  name:
+    type: string
+    description: Name of the category
+    example: Main expenses
+    enum:
+      - Incomes
+      - Main expenses
+      - Products
+      - Car
+      - Self care
+      - Child care
+      - Household products
+      - Education
+      - Other expenses
+      - Leisure
+      - Entertainment
