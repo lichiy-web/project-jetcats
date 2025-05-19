@@ -1,0 +1,117 @@
+tags:
+  - Transactions
+summary: Get transaction summary
+description: Returns summary of income and expenses (for month and year)
+operationId: getTransactionSummary
+security:
+  - bearerAuth: []
+parameters:
+  - in: query
+    name: period
+    required: false
+    description: Period in YYYY-MM format (e.g. "2025-05"). Defaults to current month if not provided.
+    schema:
+      type: string
+      example: '2025-06'
+responses:
+  '200':
+    description: Summary successfully retrieved
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully fetched summary
+            data:
+              type: object
+              required:
+                - income
+                - expense
+                - period
+              properties:
+                income:
+                  type: object
+                  required:
+                    - category
+                    - total
+                  properties:
+                    category:
+                      type: object
+                      additionalProperties:
+                        type: number
+                      example:
+                        Incomes: 5000
+                    total:
+                      type: number
+                      example: 5000
+                expense:
+                  type: object
+                  required:
+                    - category
+                    - total
+                  properties:
+                    category:
+                      type: object
+                      additionalProperties:
+                        type: number
+                      example:
+                        Main expenses: 0
+                        Products: 0
+                        Car: 0
+                        Self care: 0
+                        Child care: 1300
+                        Household products: 100
+                        Education: 0
+                        Other expenses: 200
+                        Leisure: 0
+                        Entertainment: 0
+                    total:
+                      type: number
+                      example: 1600
+                period:
+                  type: object
+                  required:
+                    - year
+                    - month
+                  properties:
+                    year:
+                      type: integer
+                      example: 2025
+                    month:
+                      type: integer
+                      example: 5
+  '401':
+    description: Unauthorized — missing or invalid token
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 401
+            message:
+              type: string
+              example: Unauthorized
+  '500':
+    description: Internal server error
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 500
+            message:
+              type: string
+              example: Something went wrong

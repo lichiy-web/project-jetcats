@@ -1,3 +1,6 @@
+export const getCathegoryNameById = (categories, id) =>
+  categories.find(cathegory => cathegory._id.toString() === id.toString()).name;
+
 export const createSummaryFromTransactions = ({
   transactions,
   categories,
@@ -10,14 +13,12 @@ export const createSummaryFromTransactions = ({
     return summary;
   }, {});
 
-  const summary = transactions.reduce(
-    (summary, { type, category: name, sum }) => {
-      summary[type].category[name] += sum;
-      summary[type].total += sum;
-      return summary;
-    },
-    initSummary,
-  );
+  const summary = transactions.reduce((summary, { type, category, sum }) => {
+    const name = getCathegoryNameById(categories, category);
+    summary[type].category[name] += sum;
+    summary[type].total += sum;
+    return summary;
+  }, initSummary);
   summary.period = { year, month };
   return summary;
 };

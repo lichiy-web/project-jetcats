@@ -11,7 +11,7 @@ import { getCategories } from '../services/categories.js';
  */
 export const getCategoriesController = async (req, res) => {
   const categories = await getCategories();
-
+  console.dir(categories[1].toString());
   res.status(200).json({
     status: 200,
     message: RES_MSG[200].getCategories,
