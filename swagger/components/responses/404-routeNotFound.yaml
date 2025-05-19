@@ -22,3 +22,5 @@ content:
             message:
               type: string
               example: 'Route not found!'
+
+              description: Transaction not found

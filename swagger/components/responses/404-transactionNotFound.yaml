@@ -1,0 +1,12 @@
+description: Transaction not found
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Not Found
+        details:
+          type: string
+          example: Transaction not found
