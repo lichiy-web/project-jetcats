@@ -15,4 +15,4 @@ content:
           type: string
           example: 'Successfully created!'
         data:
-          $ref: ../schemas/transactions.yaml
+          $ref: ../schemas/TransactionData.yaml
