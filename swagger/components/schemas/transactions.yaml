@@ -1,0 +1,33 @@
+type: object
+required:
+  - type
+  - category
+  - sum
+  - date
+  - userId
+properties:
+  type:
+    description: "transactions's type"
+    type: string
+    enum: ['income', 'expense']
+  category:
+    description: "transactions's category"
+    type: string
+    example: 'Car'
+  sum:
+    description: "transactions's sum"
+    type: number
+    example: 300
+  date:
+    description: "transactions's date"
+    type: string
+    format: date
+    example: '2025-05-18'
+  comment:
+    description: 'transaction is related to car'
+    type: string
+    example: 'transaction is related to car'
+  userId:
+    description: "transactions's userId"
+    type: string
+    example: '65e4decdd286b30065d54af9'

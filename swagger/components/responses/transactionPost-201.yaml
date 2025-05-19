@@ -1,0 +1,18 @@
+description: Successfully creates a transaction.
+content:
+  application/json:
+    schema:
+      type: object
+      required:
+        - status
+        - message
+        - data
+      properties:
+        status:
+          type: integer
+          example: 201
+        message:
+          type: string
+          example: 'Successfully created!'
+        data:
+          $ref: ../schemas/transactions.yaml
