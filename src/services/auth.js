@@ -33,7 +33,7 @@ export const loginUser = async credentials => {
   );
   if (!isPwdMatched) throw createHttpError(401, RES_MSG[401].default);
 
-  await SessionCollection.deleteOne({ userId: user._id });
+  // await SessionCollection.deleteOne({ userId: user._id });
   const newSession = createSession(user._id);
   return await SessionCollection.create(newSession);
 };
