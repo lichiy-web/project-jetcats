@@ -24,7 +24,7 @@ export const transactionSchema = new Schema(
     },
     comment: {
       type: String,
-      minlength: 2,
+      // minlength: 2,
       maxlength: 192,
     },
     userId: {
