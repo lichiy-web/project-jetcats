@@ -15,8 +15,8 @@ tags:
   - name: Auth
     description: Auth operations.
 servers:
+  - url: http://project-jetcats-be.onrender.com
   - url: http://localhost:3000
-  - url: https://example.com/api/v1
 paths:
   /auth/register:
     post:
