@@ -34,7 +34,7 @@ export const RES_MSG = {
     noUser: 'User not found!',
   },
   500: {
-    default: 'Something went wrong',
+    default: 'Internal Server Error',
     noSwaggerDocs: "Can't load swagger docs",
   },
 };

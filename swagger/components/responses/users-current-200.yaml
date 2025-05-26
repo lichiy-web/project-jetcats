@@ -15,11 +15,4 @@ content:
           type: string
           example: 'Current user fetched successfully!'
         data:
-          type: object
-          required:
-            - user
-          properties:
-            user:
-              type: array
-              items:
-                $ref: ../../components/schemas/userResponse.yaml
+          $ref: ../../components/schemas/userResponse.yaml

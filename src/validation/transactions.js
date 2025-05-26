@@ -20,7 +20,7 @@ export const transactionAddSchema = Joi.object({
     'date.base': 'Date must be a valid ISO date string',
     'any.required': 'Date is required',
   }),
-  comment: Joi.string().min(2).max(192).allow('').messages({
+  comment: Joi.string().max(192).allow('').messages({
     'string.min': 'Comment must be at least 2 characters',
     'string.max': 'Comment must be less than or equal to 192 characters',
   }),

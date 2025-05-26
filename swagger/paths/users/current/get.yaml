@@ -7,7 +7,7 @@ security:
   - bearerAuth: []
 responses:
   '200':
-    $ref: ../../../components/responses/user-current-200.yaml
+    $ref: ../../../components/responses/users-current-200.yaml
   '401':
     $ref: '../../../components/responses/401.yaml'
   '500':

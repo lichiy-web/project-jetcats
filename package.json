@@ -9,7 +9,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/index.js",
     "generate-users": "node src/utils/generators/generateUsers.js",
-    "generate-contacts": "node src/utils/generators/generateContactsForAllUsers.js",
+    "generate-transactions": "node src/utils/generators/generateTransactionsForAllUsers.js",
     "build": "npm run build-docs",
     "build-docs": "redocly bundle docs/openapi.yaml --ext json -o docs/swagger.json",
     "preview-docs": "redocly preview-docs"
@@ -51,7 +51,9 @@
     "mongoose": "^8.12.2",
     "multer": "^1.4.5-lts.2",
     "nodemailer": "^6.10.1",
+    "ping": "^0.4.4",
     "pino-http": "^10.4.0",
+    "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1"
   }
 }

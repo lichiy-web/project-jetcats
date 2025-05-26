@@ -1,0 +1,12 @@
+tags:
+  - Categories
+summary: Get all categories of transactions
+operationId: getCategories
+description: 'Get list of categories with this endpoint'
+security:
+  - bearerAuth: []
+responses:
+  '200':
+    $ref: ../../components/responses/200-categories.yaml
+  '500':
+    $ref: '../../components/responses/500.yaml'
