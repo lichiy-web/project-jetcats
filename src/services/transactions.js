@@ -9,14 +9,18 @@ export const getAllTransactions = async ({
   userId,
   page = 1,
   perPage = 10,
+  sortBy,
+  sortOrder = 'desc',
 }) => {
+  console.log(sortBy, sortOrder);
   const limit = perPage;
   const skip = (page - 1) * perPage;
 
   const totalItems = await TransactionCollection.countDocuments({ userId });
   const transactions = await TransactionCollection.find({ userId })
     .skip(skip)
-    .limit(limit);
+    .limit(limit)
+    .sort({ [sortBy]: sortOrder });
   const paginationData = calculatePaginationData(page, perPage, totalItems);
 
   return {
