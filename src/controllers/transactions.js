@@ -9,6 +9,8 @@ import {
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 import createHttpError from 'http-errors';
 import { parsePeriod } from '../utils/parsePeriod.js';
+import { transactionSchema } from '../db/models/Transaction.js';
+import { parseSortParams } from '../utils/parseSortParams.js';
 
 /**
  * Method: GET, Route: '/transactions'
@@ -20,6 +22,7 @@ import { parsePeriod } from '../utils/parsePeriod.js';
  */
 export const getAllTransactionsController = async (req, res) => {
   const { page, perPage } = parsePaginationParams(req.query);
+  const { sortBy, sortOrder } = parseSortParams(req.query, transactionSchema);
 
   const userId = req.user.id;
 
@@ -27,6 +30,8 @@ export const getAllTransactionsController = async (req, res) => {
     userId,
     page,
     perPage,
+    sortBy,
+    sortOrder,
   });
 
   res.status(200).json({
