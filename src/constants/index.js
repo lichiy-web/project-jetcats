@@ -60,7 +60,7 @@ export const ONE_DAY = 24 * 60 * ONE_MINUTE;
 
 // Терміни дії токенів
 
-export const ACCES_TOKEN_SHELF_LIFE = 0.1 * ONE_MINUTE;
+export const ACCES_TOKEN_SHELF_LIFE = 0.5 * ONE_MINUTE;
 export const REFRESH_TOKEN_SHELF_LIFE = 30 * ONE_DAY;
 
 export const SORT_ORDER = {
